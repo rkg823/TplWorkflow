@@ -266,11 +266,11 @@ Following are a different kind of Conditions -
             "Expression": "model.Notes != null"
           }
         }
-  ```
+ ```
 
 3. Link Condition
 
-  ```
+```
       {
           "Kind": "async-step",
           "Contract": "MyApp.ILibrary, MyApp",
@@ -287,11 +287,11 @@ Following are a different kind of Conditions -
             "Version": 1
           }
         }
-  ```
+```
 
 4. Step Condition
 
-  ```
+```
       {
           "Kind": "async-step",
           "Contract": "MyApp.ILibrary, MyApp",
@@ -314,11 +314,11 @@ Following are a different kind of Conditions -
               ]
           }
         }
-  ```
+```
 
 5. And Condition
 
-   ```
+```
       {
           "Kind": "async-step",
           "Contract": "MyApp.ILibrary, MyApp",
@@ -358,7 +358,7 @@ Following are a different kind of Conditions -
             ]
           }
         }
-    ```
+```
 
 6. Or Condition
 
