@@ -24,36 +24,39 @@ Use the AddWorkflow extension method for IServiceCollection to configure the wor
 When your application starts, grab the workflow host from the built-in dependency injection framework IServiceProvider. Make sure you call FromJson method using WorkflowLoader, so that the workflow host knows about all your workflows, and then call StartAsync() to executes workflows. 
 
 ### Register template a single workflow JSON
-`wfLoader.FromJson(Workflow);`
+```wfLoader.FromJson(Workflow);```
 
 ### Register template with workflow, pipelines, condition from separate files
-`wfLoader.FromJson(Workflow, Pipelines, Conditions);`
+```wfLoader.FromJson(Workflow, Pipelines, Conditions);```
 
 ### Register template using C# dependency definition 
-`Dependency = (sp) =>
+```
+Dependency = (sp) =>
       {
         sp.AddSingleton<IConditionPlugin, ConditionPlugin>();
         sp.AddSingleton<IMessageCreator, MessageCreator>();
         sp.AddSingleton<IMessagePublisher, MessagePublisher>();
       };
 wfLoader.FromJson(Workflow, Dependency)
-`
+```
 ### Start a workflow 
-`await wf.StartAsync(name, version, data)`
+```await wf.StartAsync(name, version, data)```
 
 
 
 ## **Terminology**
 Workflow - A workflow can be considered as the definition of a workflow in your application which defines the required dependencies, global variables, pipelines, and conditions.
 
-`{
+```
+{
   "Name": "sample-workflow",
   "Version": 1,
   "Description": "this is a sample workflow"
   "Pipelines": [{
       < pipelines > 
     }]
-}`
+}
+```
 
 ### Pipeline - A pipeline can be considered as an orchestrator that executes multiple steps to complete an application workflow or part of the workflow.
 
