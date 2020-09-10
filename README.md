@@ -45,6 +45,7 @@ wfLoader.FromJson(Workflow, Dependency)
 
 ## **Terminology**
 Workflow - A workflow can be considered as the definition of a workflow in your application which defines the required dependencies, global variables, pipelines, and conditions.
+
 `{
   "Name": "sample-workflow",
   "Version": 1,
