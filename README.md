@@ -135,7 +135,7 @@ Following are a different kind of Pipelines
     }
     ```
     
-5. Link Pipeline
+5. Link Pipeline - Link a already defined pipeline
 
      ```
     {
@@ -165,7 +165,7 @@ Following are a different kind of Steps
         }
     ```
 
-2. Workflow Step - Invoke a different workflow form current workflow
+2. Workflow Step - Invoke a workflow form current step
 
   ```
    {
@@ -221,7 +221,7 @@ Following are a different kind of Steps
 
 Following are a different kind of Conditions -
 
-1. Inline Condition
+1. Inline Condition - Define a contion with inline value
 
 ```
       {
@@ -241,7 +241,7 @@ Following are a different kind of Conditions -
         }
 ```
   
-2. Expression Condition
+2. Expression Condition - Resolve the condtion based on an expression
 
 ```
       {
@@ -268,7 +268,7 @@ Following are a different kind of Conditions -
         }
 ```
 
-3. Link Condition
+3. Link Condition - Link an already defiend condition 
 
 ```
       {
@@ -289,7 +289,7 @@ Following are a different kind of Conditions -
         }
 ```
 
-4. Step Condition
+4. Step Condition - Resolve condtion by invoking a method
 
 ```
       {
@@ -316,7 +316,7 @@ Following are a different kind of Conditions -
         }
 ```
 
-5. And Condition
+5. And Condition - And grouping with multiple condition
 
 ```
       {
@@ -360,7 +360,7 @@ Following are a different kind of Conditions -
         }
 ```
 
-6. Or Condition
+6. Or Condition - Or grouping with multiple conditions 
 
    ```
       {
