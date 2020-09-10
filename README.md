@@ -15,12 +15,12 @@ TplWorkflow is a TPL based workflow engine targeting .NET Standard. It supports 
 ## Host
 The workflow host is the service responsible for executing workflows
 
-##Setup
+## Setup
 
 Use the AddWorkflow extension method for IServiceCollection to configure the workflow host upon startup of your application
 ` serviceCollection.AddWorkflow();
 `
-##Usage
+## Usage
 When your application starts, grab the workflow host from the built-in dependency injection framework IServiceProvider. Make sure you call FromJson method using WorkflowLoader, so that the workflow host knows about all your workflows, and then call StartAsync() to executes workflows. 
 
 ### Register template a single workflow JSON
