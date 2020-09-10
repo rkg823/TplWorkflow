@@ -163,67 +163,285 @@ Following are a different kind of Steps
    }                                          }
   ```
 3. Pipeline Step - Invoke a pipeline from current workflow
- ```
-   {
-          "Kind": "workflow-step",
-          "Name": "SomeOtherPipeline",
-          "Version": 1
-   }                                          
   ```
+    {
+            "Kind": "workflow-step",
+            "Name": "SomeOtherPipeline",
+            "Version": 1
+    }                                          
+    ```
 4. Expression Step - Invoke an expression
-  ```
-   {
-          "Kind": "expression-step",
-          "Expression": "x*5",
-          "Inputs": [
-              {
-                "Kind": "step-input",
-                "DataType": "System.Int32",
-                "Name": "x"
-              }
-            ]
-   }
-  ```
-  5. Macro Step - Resolve string interpolation from template 
-  ```
-     {
-          "Kind": "macro-step",
-          "Expression": "{x.Title} - {x.Value}",
-          "Inputs": [
-            {
-              "Kind": "step-input",
-              "DataType": "MyApp.Model, MyApp",
-              "Name": "x"
-            }
-          ]
+    ```
+    {
+            "Kind": "expression-step",
+            "Expression": "x*5",
+            "Inputs": [
+                {
+                  "Kind": "step-input",
+                  "DataType": "System.Int32",
+                  "Name": "x"
+                }
+              ]
     }
-  ```
+    ```
+  5. Macro Step - Resolve string interpolation from template 
+    ```
+        {
+              "Kind": "macro-step",
+              "Expression": "{x.Title} - {x.Value}",
+              "Inputs": [
+                {
+                  "Kind": "step-input",
+                  "DataType": "MyApp.Model, MyApp",
+                  "Name": "x"
+                }
+              ]
+        }
+    ```
 ### Condition - A condition is an evaluation block which determines if pipeline or step should execute or not. 
 
 Following are a different kind of Conditions -
 1. Inline Condition
+    ```
+      {
+          "Kind": "async-step",
+          "Contract": "MyApp.ILibrary, MyApp",
+          "Method": "DoSomething",
+          "Inputs": [
+            {
+              "Kind": "step-input",
+              "DataType": "System.String"
+            }
+          ],
+          "Condition": {
+            "Kind": "inline-condition",
+            "Data": "false"
+          }
+        }
+  ```
 2. Expression Condition
+  ```
+      {
+          "Kind": "async-step",
+          "Contract": "MyApp.ILibrary, MyApp",
+          "Method": "DoSomething",
+          "Inputs": [
+            {
+              "Kind": "step-input",
+              "DataType": "System.String"
+            }
+          ],
+          "Condition":  {
+            "Kind": "expression-condition",
+            "Inputs": [
+              {
+                "Kind": "step-input",
+                "DataType": "MyApp.Model, MyApp",
+                "name": "model"
+              }
+            ],
+            "Expression": "model.Notes != null"
+          }
+        }
+  ```
 3. Link Condition
+  ```
+      {
+          "Kind": "async-step",
+          "Contract": "MyApp.ILibrary, MyApp",
+          "Method": "DoSomething",
+          "Inputs": [
+            {
+              "Kind": "step-input",
+              "DataType": "System.String"
+            }
+          ],
+          "Condition":  {
+            "Kind": "link-condition",
+            "Name": "SomeCondition",
+            "Version": 1
+          }
+        }
+  ```
 4. Step Condition
+  ```
+      {
+          "Kind": "async-step",
+          "Contract": "MyApp.ILibrary, MyApp",
+          "Method": "DoSomething",
+          "Inputs": [
+            {
+              "Kind": "step-input",
+              "DataType": "System.String"
+            }
+          ],
+          "Condition":  {
+              "Kind": "async-step",
+              "Contract": "MyApp.IConditionPlugin, MyApp",
+              "Method": "ShouldExcecute",
+              "Inputs": [
+                {
+                  "Kind": "step-input",
+                  "DataType": "MyApp.Model, MyApp"
+                }
+              ]
+          }
+        }
+  ```
 5. And Condition
-6. Or Condition
+   ```
+      {
+          "Kind": "async-step",
+          "Contract": "MyApp.ILibrary, MyApp",
+          "Method": "DoSomething",
+          "Inputs": [
+            {
+              "Kind": "step-input",
+              "DataType": "System.String"
+            }
+          ],
+          "Condition":  {
+            "Kind": "and-condition",
+            "Conditions": [
+              {
+                "Kind": "expression-condition",
+                "parameters": [
+                  {
+                    "Kind": "step-input",
+                    "DataType": "MyApp.Model, MyApp",
+                    "Name": "model"
+                  }
+                ],
+                "Expression": "Model.Severity == 1"
+              },
+              {
+                "Kind": "expression-condition",
+                "Parameters": [
+                  {
+                    "Kind": "step-input",
+                    "DataType": "MyApp.Model, MyApp",
+                    "Name": "model"
+                  }
+                ],
+                "Expression": "model.Notes != null"
 
+              }
+            ]
+          }
+        }
+    ```
+6. Or Condition
+   ```
+      {
+          "Kind": "async-step",
+          "Contract": "MyApp.ILibrary, MyApp",
+          "Method": "DoSomething",
+          "Inputs": [
+            {
+              "Kind": "step-input",
+              "DataType": "System.String"
+            }
+          ],
+          "Condition":  {
+            "Kind": "or-condition",
+            "Conditions": [
+              {
+                "Kind": "expression-condition",
+                "Inputs": [
+                  {
+                    "Kind": "step-input",
+                    "DataType": "MyApp.Model, MyApp",
+                    "Name": "model"
+                  }
+                ],
+                "Expression": "Model.Severity == 1"
+              },
+              {
+                "Kind": "expression-condition",
+                "Inputs": [
+                  {
+                    "Kind": "step-input",
+                    "DataType": "MyApp.Model, MyApp",
+                    "Name": "model"
+                  }
+                ],
+                "Expression": "model.Notes != null"
+
+              }
+            ]
+          }
+        }
+    ```
 ### Input - An input is a parameter definition that defines the act of entering data into a method call.
 
 Following are a different kind of Inputs - 
-1. Inline Input
-2. Expression Input
-3. Variable Input
-4. Step Input
+1. Inline Input - Define method input using inline template
+  ```
+      {
+        "Kind": "inline-input",
+        "DataType": "System.String",
+        "Data": "Foo"
+      }
+  ```
+2. Expression Input - Resolve the method input using expression
+  ```
+      {
+        "Kind": "expression-input",
+        "Inputs": [
+                  {
+                    "Kind": "step-input",
+                    "DataType": "MyApp.Model, MyApp",
+                    "name": "model"
+                  }
+                ],
+        "Expression": "Model.Note",
+        "DataType": "System.String",
+      }
+  ```
+3. Variable Input - Set the variable value as a method input
+  ```
+      {
+        "Kind": "variable-input",
+        "DataType": "System.String",
+        "Name": "SomeVariable"
+      }
+  ```
+4. Step Input - Set the last step output as a method input
+  ```
+      {
+        "Kind": "step-input",
+        "DataType": "System.String",
+      }
+  ```
 
 ### Output - An output is the ability to store a result of a step in memory.
 
 Following are a different kind of Outputs -
-1. Step Output
+1. Step Output - Set the current step output to either local or global scope
+  ```
+     {
+          "Name": "SomeVariable",
+          "Kind": "step-output",
+          "Scope": "local-scope"
+     }
+  ```
 2. Expression Output
-
+  ```
+     {
+          "Name": "SomeVariable",
+          "Kind": "expression-output",
+          "Inputs": [
+                  {
+                    "Kind": "step-input",
+                    "DataType": "MyApp.Model, MyApp",
+                    "name": "model"
+                  }
+                ],
+          "Expression": "Model.Note",
+          "Scope": "local-scope"
+     }
 ### Scope - The scope defines the region of a workflow where the variable binding is valid:
 
 Following are a different kind of Scopes -
-1. Global Scope 
-2. Local Scope 
+1. Global Scope - Store value globally and can access from any steps
+2. Local Scope - Store the value in the pipeline context and can be access within pipeline steps
