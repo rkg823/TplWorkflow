@@ -51,9 +51,40 @@ Workflow - A workflow can be considered as the definition of a workflow in your 
 {
   "Name": "sample-workflow",
   "Version": 1,
-  "Description": "this is a sample workflow"
+  "Description": "this is a sample workflow",
+  "Dependencies": [
+    {
+      "Contract": "MyApp.ILibrary, MyApp",
+      "Implementation": "MyApp.Library, MyApp",
+      "Lifetime": "Transient"
+    }
+  ],
   "Pipelines": [{
-      < pipelines > 
+      "Kind": "sequential-pipeline",
+      "Steps": [
+        {
+          "Kind": "async-step",
+          "Contract": "MyApp.ILibrary, MyApp",
+          "Method": "DoSomething",
+          "Inputs": [
+            {
+              "Kind": "step-input",
+              "DataType": "System.String"
+            }
+          ]
+        },
+        {
+          "Kind": "async-step",
+          "Contract": "MyApp.ILibrary, MyApp",
+          "Method": "DoSomethingElse",
+          "Inputs": [
+            {
+              "Kind": "step-input",
+              "DataType": "System.String"
+            }
+          ]
+        }
+      ]
     }]
 }
 ```
