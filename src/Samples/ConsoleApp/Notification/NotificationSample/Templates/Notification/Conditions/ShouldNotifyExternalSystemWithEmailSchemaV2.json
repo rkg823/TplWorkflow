@@ -1,0 +1,45 @@
+{
+  "Name": "ShouldNotifyExternalSystemWithEmailSchema",
+  "Version": 2,
+  "Kind": "or-condition",
+  "Conditions": [
+    {
+      "kind": "link-condition",
+      "Name": "ShouldNotifyExternalSystemWithEmailSchema",
+      "Version": 1
+
+    },
+    {
+      "Kind": "and-condition",
+      "Conditions": [
+        {
+          "Kind": "expression-condition",
+          "parameters": [
+            {
+              "Kind": "step-input",
+              "DataType": "CommonModels.Alert, CommonModels",
+              "name": "_alert"
+            }
+          ],
+          "kind": "expression-condition",
+          "expression": "_alert.AlertSeverity == 1"
+        },
+        {
+          "Kind": "expression-condition",
+          "parameters": [
+            {
+              "Kind": "step-input",
+              "DataType": "CommonModels.Alert, CommonModels",
+              "name": "_alert"
+            }
+          ],
+          "kind": "expression-condition",
+          "expression": "_alert.Notes != null"
+
+        }
+      ]
+    }
+  ]
+
+
+}

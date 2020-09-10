@@ -1,0 +1,32 @@
+{
+  "Name": "ShouldNotifyExternalSystemWithTwilioSchema",
+  "Version": 1,
+  "Kind": "step-condition",
+  "Variables": {
+    "Criteria": {
+      "DataType": "NotificationLibrary.Models.NotificationCriteria, NotificationLibrary",
+      "Data": {
+        "Source": "RMS",
+        "AlertCategoryPrefix": "Car"
+      }
+    }
+  },
+  "Step": {
+    "Kind": "async-step",
+    "Contract": "NotificationLibrary.Contracts.IConditionPlugin, NotificationLibrary",
+    "Method": "ShouldNotifyExternalSystemWithTwilioSchema",
+    "Inputs": [
+      {
+        "Kind": "step-input",
+        "DataType": "CommonModels.Alert, CommonModels"
+      },
+      {
+        "Kind": "variable-input",
+        "Name": "Criteria",
+        "DataType": "NotificationLibrary.Models.NotificationCriteria, NotificationLibrary"
+      }
+    ]
+  }
+
+
+}

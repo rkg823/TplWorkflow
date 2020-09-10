@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CommonModels\CommonModels.csproj" />
+    <ProjectReference Include="..\MoinitoringLibrary\MonitoringLibrary.csproj" />
+    <ProjectReference Include="..\NotificationLibrary\NotificationLibrary.csproj" />
+  </ItemGroup>
+
+</Project>

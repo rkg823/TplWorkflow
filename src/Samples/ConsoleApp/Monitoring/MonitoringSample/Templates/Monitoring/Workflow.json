@@ -1,0 +1,208 @@
+{
+  "Name": "monitoring",
+  "Version": 1,
+  "Pipelines": [
+    {
+      "Kind": "pforeach-pipeline",
+      "Source": {
+        "Kind": "step-input"
+      },
+      "Steps": [
+        {
+          "Kind": "pipeline-step",
+          "Pipeline": {
+            "Kind": "parallel-pipeline",
+            "Steps": [
+              {
+                "Kind": "async-step",
+                "Contract": "MonitoringLibrary.Contracts.ICommunication, MonitoringLibrary",
+                "Method": "SendToIotHub",
+                "Inputs": [
+                  {
+                    "Kind": "step-input",
+                    "DataType": "System.String",
+                    "Generic": true
+                  }
+                ]
+              },
+              {
+                "Kind": "pipeline-step",
+                "Pipeline": {
+                  "Kind": "sequential-pipeline",
+                  "Steps": [
+                    {
+                      "Kind": "async-step",
+                      "Contract": "MonitoringLibrary.Contracts.IMapper, MonitoringLibrary",
+                      "Method": "EventToActivity",
+                      "Inputs": [
+                        {
+                          "Kind": "step-input",
+                          "DataType": "System.String"
+                        }
+                      ],
+                      "Outputs": [
+                        {
+                          "Name": "activity",
+                          "Kind": "step-output"
+                        }
+                      ]
+                    },
+                    {
+                      "Kind": "pipeline-step",
+                      "Pipeline": {
+                        "Kind": "parallel-pipeline",
+                        "Maps": [
+                          {
+                            "From": {
+                              "Kind": "variable-input",
+                              "Name": "activity"
+                            },
+                            "To": "activity"
+                          }
+                        ],
+                        "Steps": [
+                          {
+                            "Kind": "async-step",
+                            "Contract": "MonitoringLibrary.Contracts.ICommunication, MonitoringLibrary",
+                            "Method": "SendToIotHub",
+                            "Inputs": [
+                              {
+                                "Kind": "step-input",
+                                "DataType": "CommonModels.Activity, CommonModels",
+                                "Generic": true
+                              }
+                            ]
+                          },
+                          {
+                            "Kind": "async-step",
+                            "Contract": "MonitoringLibrary.Contracts.ICommunication, MonitoringLibrary",
+                            "Method": "SendToNotificationHub",
+                            "Inputs": [
+                              {
+                                "Kind": "step-input",
+                                "DataType": "CommonModels.Activity, CommonModels",
+                                "Generic": true
+                              }
+                            ]
+                          },
+                          {
+                            "Kind": "pipeline-step",
+                            "Pipeline": {
+                              "Kind": "sequential-pipeline",
+                              "Maps": [
+                                {
+                                  "From": {
+                                    "Kind": "variable-input",
+                                    "Name": "activity"
+                                  },
+                                  "To": "activity"
+                                }
+                              ],
+                              "Condition": {
+                                "Kind": "inline-condition",
+                                "Data": true
+                              },
+                              "Steps": [
+                                {
+                                  "Kind": "async-step",
+                                  "Contract": "MonitoringLibrary.Contracts.IRuleStore,  MonitoringLibrary",
+                                  "Method": "GetRules",
+                                  "Inputs": [
+                                    {
+                                      "Kind": "step-input",
+                                      "DataType": "CommonModels.Activity, CommonModels"
+                                    }
+                                  ]
+                                },
+                                {
+                                  "Kind": "async-step",
+                                  "Contract": "MonitoringLibrary.Contracts.IMonitoring, MonitoringLibrary",
+                                  "Method": "Evaluate",
+                                  "Inputs": [
+                                    {
+                                      "Kind": "variable-input",
+                                      "Name": "activity",
+                                      "DataType": "CommonModels.Activity, CommonModels"
+                                    },
+                                    {
+                                      "Kind": "step-input",
+                                      "DataType": "System.Collections.Generic.IList`1[[CommonModels.Rule, CommonModels]]"
+
+                                    }
+                                  ]
+                                },
+                                {
+                                  "Kind": "async-step",
+                                  "Contract": "MonitoringLibrary.Contracts.IMapper,  MonitoringLibrary",
+                                  "Method": "ActionToAlert",
+                                  "Inputs": [
+                                    {
+                                      "Kind": "step-input",
+                                      "DataType": "System.Collections.Generic.IList`1[[CommonModels.Action, CommonModels]]"
+                                    }
+                                  ]
+                                },
+                                {
+                                  "Kind": "pipeline-step",
+                                  "Pipeline": {
+                                    "Kind": "pforeach-pipeline",
+                                    "Source": {
+                                      "Kind": "step-input"
+                                    },
+                                    "Steps": [
+                                      {
+                                        "Kind": "pipeline-step",
+                                        "Pipeline": {
+                                          "Kind": "parallel-pipeline",
+                                          "Steps": [
+                                            {
+                                              "Kind": "async-step",
+                                              "Contract": "MonitoringLibrary.Contracts.ICommunication, MonitoringLibrary",
+                                              "Method": "SendToIotHub",
+                                              "Inputs": [
+                                                {
+                                                  "Kind": "step-input",
+                                                  "DataType": "CommonModels.Alert, CommonModels",
+                                                  "Generic": true
+                                                }
+                                              ]
+                                            },
+                                            {
+                                              "Kind": "async-step",
+                                              "Contract": "MonitoringLibrary.Contracts.ICommunication, MonitoringLibrary",
+                                              "Method": "SendToNotificationHub",
+                                              "Inputs": [
+                                                {
+                                                  "Kind": "step-input",
+                                                  "DataType": "CommonModels.Alert, CommonModels",
+                                                  "Generic": true
+                                                }
+                                              ]
+                                            },
+                                            {
+                                              "Kind": "workflow-step",
+                                              "Name": "ChannelNotification",
+                                              "Version": 1
+                                            }
+                                          ]
+                                        }
+                                      }
+                                    ]
+                                  }
+                                }
+                              ]
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

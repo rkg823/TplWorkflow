@@ -1,0 +1,61 @@
+{
+  "Name": "ChannelNotification",
+  "Version": 1,
+  "Pipelines": [
+    {
+      "Kind": "pforeach-pipeline",
+      "Source": {
+        "Kind": "step-input"
+      },
+      "Steps": [
+        {
+          "Kind": "pipeline-step",
+          "Pipeline": {
+            "Kind": "parallel-pipeline",
+            "Steps": [
+              {
+                "Kind": "pipeline-step",
+                "Condition": {
+                  "Kind": "link-condition",
+                  "Name": "ShouldNotifyExternalSystemWithEmailSchema",
+                  "Version": 2
+                },
+                "Pipeline": {
+                  "Kind": "link-pipeline",
+                  "Name": "SendToExternalSystemEmail",
+                  "Version": 1
+                }
+              },
+              {
+                "Kind": "pipeline-step",
+                "Condition": {
+                  "Kind": "link-condition",
+                  "Name": "ShouldNotifyExternalSystemWithSmsSchema",
+                  "Version": 1
+                },
+                "Pipeline": {
+                  "Kind": "link-pipeline",
+                  "Name": "SendToExternalSystemSms",
+                  "Version": 1
+                }
+              },
+              {
+                "Kind": "pipeline-step",
+                "Condition": {
+                  "Kind": "link-condition",
+                  "Name": "ShouldNotifyExternalSystemWithTwilioSchema",
+                  "Version": 1
+                },
+                "Pipeline": {
+                  "Kind": "link-pipeline",
+                  "Name": "SendToTwilioEmail",
+                  "Version": 1
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

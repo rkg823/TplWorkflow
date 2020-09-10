@@ -1,0 +1,43 @@
+{
+  "Name": "SendToExternalSystemEmail",
+  "Version": 1,
+  "Kind": "sequential-pipeline",
+  "Variables": {
+    "TemplateName": "EmailMessageTemplate",
+    "ChannelUrl": "http://email-channel-url.com"
+  },
+  "Steps": [
+    {
+      "Kind": "async-step",
+      "Contract": "NotificationLibrary.Contracts.IMessageCreator, NotificationLibrary",
+      "Method": "CreateNotificationMessageAsync",
+      "Inputs": [
+        {
+          "Kind": "step-input",
+          "DataType": "CommonModels.Alert, CommonModels"
+        },
+        {
+          "Kind": "variable-input",
+          "Name": "TemplateName",
+          "DataType": "System.String"
+        }
+      ]
+    },
+    {
+      "Kind": "async-step",
+      "Contract": "NotificationLibrary.Contracts.IMessagePublisher, NotificationLibrary",
+      "Method": "PublishAsync",
+      "Inputs": [
+        {
+          "Kind": "step-input",
+          "DataType": "System.String"
+        },
+        {
+          "Kind": "variable-input",
+          "Name": "ChannelUrl",
+          "DataType": "System.String"
+        }
+      ]
+    }
+  ]
+}
