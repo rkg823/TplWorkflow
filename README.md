@@ -93,6 +93,7 @@ Workflow - A workflow can be considered as the definition of a workflow in your 
 
 Following are a different kind of Pipelines
 1. Parallel Pipeline - Executes all the steps parallelly 
+
     ```
     {
       "Kind": "parallel-pipeline",
@@ -102,6 +103,7 @@ Following are a different kind of Pipelines
     }
     ```
 2. Sequential Pipeline - Executes all the steps sequentially 
+
     ```
     {
       "Kind": "sequential-pipeline",
@@ -110,7 +112,9 @@ Following are a different kind of Pipelines
       ]
     }
     ```
+    
 3. Foreach Pipeline - Executes all the steps sequentially once for each array element.
+
      ```
     {
       "Kind": "foreach-pipeline",
@@ -119,7 +123,9 @@ Following are a different kind of Pipelines
       ]
     }
     ```
+    
 4. Parallel Foreach Pipeline - The loop partitions the source array and schedules the steps on multiple threads based on the system environment
+
      ```
     {
       "Kind": "pforeach-pipeline",
@@ -128,7 +134,9 @@ Following are a different kind of Pipelines
       ]
     }
     ```
+    
 5. Link Pipeline
+
      ```
     {
       "Kind": "link-pipeline",
@@ -142,6 +150,7 @@ Following are a different kind of Pipelines
 Following are a different kind of Steps
 
 1. AsyncStep - Invoke a method  
+
     ```
      {
           "Kind": "async-step",
@@ -157,6 +166,7 @@ Following are a different kind of Steps
     ```
 
 2. Workflow Step - Invoke a different workflow form current workflow
+
   ```
    {
           "Kind": "workflow-step",
@@ -166,6 +176,7 @@ Following are a different kind of Steps
   ```
 
 3. Pipeline Step - Invoke a pipeline from current workflow
+
   ```
     {
             "Kind": "workflow-step",
@@ -175,6 +186,7 @@ Following are a different kind of Steps
   ```
 
 4. Expression Step - Invoke an expression
+
     ```
     {
             "Kind": "expression-step",
@@ -190,6 +202,7 @@ Following are a different kind of Steps
     ```
 
   5. Macro Step - Resolve string interpolation from template 
+  
     ```
         {
               "Kind": "macro-step",
@@ -209,6 +222,7 @@ Following are a different kind of Steps
 Following are a different kind of Conditions -
 
 1. Inline Condition
+
     ```
       {
           "Kind": "async-step",
@@ -228,6 +242,7 @@ Following are a different kind of Conditions -
   ```
 
 2. Expression Condition
+
   ```
       {
           "Kind": "async-step",
@@ -254,6 +269,7 @@ Following are a different kind of Conditions -
   ```
 
 3. Link Condition
+
   ```
       {
           "Kind": "async-step",
@@ -274,6 +290,7 @@ Following are a different kind of Conditions -
   ```
 
 4. Step Condition
+
   ```
       {
           "Kind": "async-step",
@@ -300,6 +317,7 @@ Following are a different kind of Conditions -
   ```
 
 5. And Condition
+
    ```
       {
           "Kind": "async-step",
@@ -343,6 +361,7 @@ Following are a different kind of Conditions -
     ```
 
 6. Or Condition
+
    ```
       {
           "Kind": "async-step",
@@ -390,6 +409,7 @@ Following are a different kind of Conditions -
 Following are a different kind of Inputs - 
 
 1. Inline Input - Define method input using inline template
+
   ```
       {
         "Kind": "inline-input",
@@ -399,6 +419,7 @@ Following are a different kind of Inputs -
   ```
 
 2. Expression Input - Resolve the method input using expression
+
   ```
       {
         "Kind": "expression-input",
@@ -415,6 +436,7 @@ Following are a different kind of Inputs -
   ```
 
 3. Variable Input - Set the variable value as a method input
+
   ```
       {
         "Kind": "variable-input",
@@ -424,6 +446,7 @@ Following are a different kind of Inputs -
   ```
 
 4. Step Input - Set the last step output as a method input
+
   ```
       {
         "Kind": "step-input",
@@ -436,6 +459,7 @@ Following are a different kind of Inputs -
 Following are a different kind of Outputs -
 
 1. Step Output - Set the current step output to either local or global scope
+
   ```
      {
           "Name": "SomeVariable",
@@ -445,6 +469,7 @@ Following are a different kind of Outputs -
   ```
 
 2. Expression Output
+
   ```
      {
           "Name": "SomeVariable",
