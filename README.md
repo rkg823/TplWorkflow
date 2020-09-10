@@ -140,6 +140,7 @@ Following are a different kind of Pipelines
 ### Step - A step is an invocation block that can be used to execute a method to complete a task in a pipeline.
 
 Following are a different kind of Steps
+
 1. AsyncStep - Invoke a method  
     ```
      {
@@ -154,6 +155,7 @@ Following are a different kind of Steps
           ]
         }
     ```
+
 2. Workflow Step - Invoke a different workflow form current workflow
   ```
    {
@@ -162,6 +164,7 @@ Following are a different kind of Steps
           "Version": 1
    }                                          }
   ```
+
 3. Pipeline Step - Invoke a pipeline from current workflow
   ```
     {
@@ -169,7 +172,8 @@ Following are a different kind of Steps
             "Name": "SomeOtherPipeline",
             "Version": 1
     }                                          
-    ```
+  ```
+
 4. Expression Step - Invoke an expression
     ```
     {
@@ -184,6 +188,7 @@ Following are a different kind of Steps
               ]
     }
     ```
+
   5. Macro Step - Resolve string interpolation from template 
     ```
         {
@@ -198,9 +203,11 @@ Following are a different kind of Steps
               ]
         }
     ```
+
 ### Condition - A condition is an evaluation block which determines if pipeline or step should execute or not. 
 
 Following are a different kind of Conditions -
+
 1. Inline Condition
     ```
       {
@@ -219,6 +226,7 @@ Following are a different kind of Conditions -
           }
         }
   ```
+
 2. Expression Condition
   ```
       {
@@ -244,6 +252,7 @@ Following are a different kind of Conditions -
           }
         }
   ```
+
 3. Link Condition
   ```
       {
@@ -263,6 +272,7 @@ Following are a different kind of Conditions -
           }
         }
   ```
+
 4. Step Condition
   ```
       {
@@ -288,6 +298,7 @@ Following are a different kind of Conditions -
           }
         }
   ```
+
 5. And Condition
    ```
       {
@@ -330,6 +341,7 @@ Following are a different kind of Conditions -
           }
         }
     ```
+
 6. Or Condition
    ```
       {
@@ -372,9 +384,11 @@ Following are a different kind of Conditions -
           }
         }
     ```
+
 ### Input - An input is a parameter definition that defines the act of entering data into a method call.
 
 Following are a different kind of Inputs - 
+
 1. Inline Input - Define method input using inline template
   ```
       {
@@ -383,6 +397,7 @@ Following are a different kind of Inputs -
         "Data": "Foo"
       }
   ```
+
 2. Expression Input - Resolve the method input using expression
   ```
       {
@@ -398,6 +413,7 @@ Following are a different kind of Inputs -
         "DataType": "System.String",
       }
   ```
+
 3. Variable Input - Set the variable value as a method input
   ```
       {
@@ -406,6 +422,7 @@ Following are a different kind of Inputs -
         "Name": "SomeVariable"
       }
   ```
+
 4. Step Input - Set the last step output as a method input
   ```
       {
@@ -417,6 +434,7 @@ Following are a different kind of Inputs -
 ### Output - An output is the ability to store a result of a step in memory.
 
 Following are a different kind of Outputs -
+
 1. Step Output - Set the current step output to either local or global scope
   ```
      {
@@ -425,6 +443,7 @@ Following are a different kind of Outputs -
           "Scope": "local-scope"
      }
   ```
+
 2. Expression Output
   ```
      {
@@ -440,6 +459,8 @@ Following are a different kind of Outputs -
           "Expression": "Model.Note",
           "Scope": "local-scope"
      }
+  ```
+  
 ### Scope - The scope defines the region of a workflow where the variable binding is valid:
 
 Following are a different kind of Scopes -
