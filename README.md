@@ -1,6 +1,6 @@
 # TplWorkflow
 
-TplWorkflow is a TPL based workflow library targeting .NET Standard. It supports JSON template base task execution that adds workflow in an application. It can be fully integrated into an application written in C#.
+TplWorkflow is a TPL based workflow library targeting .NET Standard. It supports JSON template based task execution that adds workflow in an application. It can be fully integrated into an application written in C#.
 
 ## **Features** 
 •	Ability to define a pipeline or group of nested pipelines with multiple tasks to perform an operation.
