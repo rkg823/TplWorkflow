@@ -223,7 +223,7 @@ Following are a different kind of Conditions -
 
 1. Inline Condition
 
-    ```
+```
       {
           "Kind": "async-step",
           "Contract": "MyApp.ILibrary, MyApp",
@@ -239,11 +239,11 @@ Following are a different kind of Conditions -
             "Data": "false"
           }
         }
-  ```
-
+```
+  
 2. Expression Condition
 
-  ```
+```
       {
           "Kind": "async-step",
           "Contract": "MyApp.ILibrary, MyApp",
@@ -266,7 +266,7 @@ Following are a different kind of Conditions -
             "Expression": "model.Notes != null"
           }
         }
- ```
+```
 
 3. Link Condition
 
