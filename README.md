@@ -92,19 +92,112 @@ Workflow - A workflow can be considered as the definition of a workflow in your 
 ### Pipeline - A pipeline can be considered as an orchestrator that executes multiple steps to complete an application workflow or part of the workflow.
 
 Following are a different kind of Pipelines
-1. Parallel Pipeline
-2. Sequential Pipeline
-3. Foreach Pipeline
-4. Parallel Foreach Pipeline
+1. Parallel Pipeline - Executes all the steps parallelly 
+    ```
+    {
+      "Kind": "parallel-pipeline",
+      "Steps": [
+        ...
+      ]
+    }
+    ```
+2. Sequential Pipeline - Executes all the steps sequentially 
+    ```
+    {
+      "Kind": "sequential-pipeline",
+      "Steps": [
+       ...
+      ]
+    }
+    ```
+3. Foreach Pipeline - Executes all the steps sequentially once for each array element.
+     ```
+    {
+      "Kind": "foreach-pipeline",
+      "Steps": [
+       ...
+      ]
+    }
+    ```
+4. Parallel Foreach Pipeline - The loop partitions the source array and schedules the steps on multiple threads based on the system environment
+     ```
+    {
+      "Kind": "pforeach-pipeline",
+      "Steps": [
+       ...
+      ]
+    }
+    ```
 5. Link Pipeline
+     ```
+    {
+      "Kind": "link-pipeline",
+      "Name": "SomeOtherPipeline",
+      "Version": 1
+    }
+    ```
 
 ### Step - A step is an invocation block that can be used to execute a method to complete a task in a pipeline.
 
 Following are a different kind of Steps
-1. AsyncStep
-2. Workflow Step
-3. Pipeline Step
-
+1. AsyncStep - Invoke a method  
+    ```
+     {
+          "Kind": "async-step",
+          "Contract": "MyApp.ILibrary, MyApp",
+          "Method": "DoSomethingElse",
+          "Inputs": [
+            {
+              "Kind": "step-input",
+              "DataType": "MyApp.Model, MyApp"
+            }
+          ]
+        }
+    ```
+2. Workflow Step - Invoke a different workflow form current workflow
+  ```
+   {
+          "Kind": "workflow-step",
+          "Name": "SomeOtherWorkflow",
+          "Version": 1
+   }                                          }
+  ```
+3. Pipeline Step - Invoke a pipeline from current workflow
+ ```
+   {
+          "Kind": "workflow-step",
+          "Name": "SomeOtherPipeline",
+          "Version": 1
+   }                                          
+  ```
+4. Expression Step - Invoke an expression
+  ```
+   {
+          "Kind": "expression-step",
+          "Expression": "x*5",
+          "Inputs": [
+              {
+                "Kind": "step-input",
+                "DataType": "System.Int32",
+                "Name": "x"
+              }
+            ]
+   }
+  ```
+  5. Macro Step - Resolve string interpolation from template 
+  ```
+     {
+          "Kind": "macro-step",
+          "Expression": "{x.Title} - {x.Value}",
+          "Inputs": [
+            {
+              "Kind": "step-input",
+              "DataType": "MyApp.Model, MyApp",
+              "Name": "x"
+            }
+          ]
+    }
+  ```
 ### Condition - A condition is an evaluation block which determines if pipeline or step should execute or not. 
 
 Following are a different kind of Conditions -
