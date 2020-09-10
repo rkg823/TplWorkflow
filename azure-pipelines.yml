@@ -11,23 +11,27 @@ pool:
 
 variables:
   solution: 'TplWorkflow.sln'
+  testSolution: 'src/TplWorkflow.Tests/Microsoft.Aware.Workflow.Test/TplWorkflow.Test.csproj'
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
 
 steps:
-- task: NuGetToolInstaller@1
-
-- task: NuGetCommand@2
+- task: DotNetCoreCLI@2
   inputs:
-    restoreSolution: '$(solution)'
+    command: 'restore'
+    projects: '$(solution)'
 
-- task: VSBuild@1
+- task: DotNetCoreCLI@2
   inputs:
-    solution: '$(solution)'
-    platform: '$(buildPlatform)'
-    configuration: '$(buildConfiguration)'
+    command: 'build'
+    projects: '$(solution)'
+    arguments: >
+        --no-restore
+        --configuration $(buildConfiguration)
 
-- task: VSTest@2
+- task: DotNetCoreCLI@2
   inputs:
-    platform: '$(buildPlatform)'
-    configuration: '$(buildConfiguration)'
+    command: 'test'
+    publishTestResults: true
+    projects: '$(testSolution)'
+    arguments: '--configuration $(buildConfiguration) --collect "Code coverage"'
