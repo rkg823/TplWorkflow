@@ -1,0 +1,36 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30011.22
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{CDACFDBF-80FE-4265-9728-8A26BA4D77DB}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TplWorkflow", "src\TplWorkflow\TplWorkflow.csproj", "{BBDB77DA-AADF-4163-9A1A-949EF2EB42EB}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TplWorkflow.Test", "src\TplWorkflow.Tests\Microsoft.Aware.Workflow.Test\TplWorkflow.Test.csproj", "{13E3E40A-3D27-4E76-81C5-5C2E01325D60}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BBDB77DA-AADF-4163-9A1A-949EF2EB42EB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BBDB77DA-AADF-4163-9A1A-949EF2EB42EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BBDB77DA-AADF-4163-9A1A-949EF2EB42EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BBDB77DA-AADF-4163-9A1A-949EF2EB42EB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{13E3E40A-3D27-4E76-81C5-5C2E01325D60}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{13E3E40A-3D27-4E76-81C5-5C2E01325D60}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{13E3E40A-3D27-4E76-81C5-5C2E01325D60}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{13E3E40A-3D27-4E76-81C5-5C2E01325D60}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{13E3E40A-3D27-4E76-81C5-5C2E01325D60} = {CDACFDBF-80FE-4265-9728-8A26BA4D77DB}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E7279B72-C2A1-4815-9D7C-FED636A84F55}
+	EndGlobalSection
+EndGlobal

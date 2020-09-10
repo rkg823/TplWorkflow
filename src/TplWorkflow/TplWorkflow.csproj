@@ -1,0 +1,37 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <ProjectGuid>bbdb77da-aadf-4163-9a1a-949ef2eb42eb</ProjectGuid>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageReleaseNotes>Workflow Core is a TPL based workflow engine targeting .NET Standard. It supports JSON template base task execution that adds workflow in an application. It can be fully integrated into an application written in C#.
+
+Features
+• Ability to define a pipeline or group of nested pipelines with multiple tasks to perform an operation.
+• Parallel and Sequential Tasks execution from JSON template
+• Condition evaluation and decision making from JSON template
+• Link multiple pipelines and conditions to form a workflow.
+• C# Expression evaluation from the JSON template.
+• Variable declaration in the pipeline.
+
+New Features -
+Ability to invoke instance methods
+Ability to invoke static methods
+Ability to invoke non task mehod 
+Ability to invoke void task method
+Ability to define partial dependency from code and template 
+
+Breaking Changes - pipeline-scope is now named as local-scope.</PackageReleaseNotes>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Core\Pipelines\SwitchPipeline.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="2.2.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
+    <PackageReference Include="System.Linq.Dynamic.Core" Version="1.1.1" />
+  </ItemGroup>
+
+</Project>
