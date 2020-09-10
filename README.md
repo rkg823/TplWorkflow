@@ -118,6 +118,9 @@ Following are a different kind of Pipelines
      ```
     {
       "Kind": "foreach-pipeline",
+      "Source": {
+        "Kind": "step-input"
+      },
       "Steps": [
        ...
       ]
@@ -129,6 +132,9 @@ Following are a different kind of Pipelines
      ```
     {
       "Kind": "pforeach-pipeline",
+       "Source": {
+        "Kind": "step-input"
+      },
       "Steps": [
        ...
       ]
