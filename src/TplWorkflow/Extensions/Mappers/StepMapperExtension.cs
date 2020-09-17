@@ -1,11 +1,12 @@
-﻿using TplWorkflow.Core.Inputs;
+﻿// Copyright (c) Microsoft Corporation.// Licensed under the MIT license.
+
+using TplWorkflow.Core.Inputs;
 using TplWorkflow.Core.Methods;
 using TplWorkflow.Core.Steps;
 using TplWorkflow.Exceptions;
 using TplWorkflow.Extensions.Validations;
 using TplWorkflow.Models;
 using TplWorkflow.Models.Templates;
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;

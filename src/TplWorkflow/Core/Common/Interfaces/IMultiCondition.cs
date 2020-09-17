@@ -1,7 +1,6 @@
-﻿using TplWorkflow.Core.Conditions;
-using System;
+﻿// Copyright (c) Microsoft Corporation.// Licensed under the MIT license.
+using TplWorkflow.Core.Conditions;
 using System.Collections.Generic;
-using System.Text;
 
 namespace TplWorkflow.Core.Common.Interfaces
 {

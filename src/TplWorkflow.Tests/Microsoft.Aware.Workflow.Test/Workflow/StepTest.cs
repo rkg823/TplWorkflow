@@ -1,4 +1,6 @@
-﻿using TplWorkflow.Core;
+﻿// Copyright (c) Microsoft Corporation.// Licensed under the MIT license.
+
+using TplWorkflow.Core;
 using TplWorkflow.Core.Common;
 using TplWorkflow.Core.Conditions;
 using TplWorkflow.Core.Inputs;

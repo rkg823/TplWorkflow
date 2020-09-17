@@ -1,4 +1,6 @@
-﻿using TplWorkflow.Core.Common;
+﻿// Copyright (c) Microsoft Corporation.// Licensed under the MIT license.
+
+using TplWorkflow.Core.Common;
 using System.Threading.Tasks;
 
 namespace TplWorkflow.Core.Conditions

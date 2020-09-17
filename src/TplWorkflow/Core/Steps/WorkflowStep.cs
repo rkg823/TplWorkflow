@@ -1,4 +1,6 @@
-﻿using TplWorkflow.Exceptions;
+﻿// Copyright (c) Microsoft Corporation.// Licensed under the MIT license.
+
+using TplWorkflow.Exceptions;
 using TplWorkflow.Core.Conditions;
 using TplWorkflow.Core.Common;
 using TplWorkflow.Stores.Interfaces;

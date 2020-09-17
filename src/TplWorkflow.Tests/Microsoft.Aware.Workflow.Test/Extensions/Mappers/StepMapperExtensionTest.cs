@@ -1,6 +1,7 @@
-﻿using TplWorkflow.Core.Common;
+﻿// Copyright (c) Microsoft Corporation.// Licensed under the MIT license.
+
+using TplWorkflow.Core.Common;
 using TplWorkflow.Core.Methods;
-using TplWorkflow.Core.Outputs;
 using TplWorkflow.Core.Steps;
 using TplWorkflow.Exceptions;
 using TplWorkflow.Extensions.Mappers;
@@ -13,7 +14,6 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace TplWorkflow.Test.Extensions.Mappers
 {

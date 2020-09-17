@@ -1,4 +1,6 @@
-﻿using TplWorkflow.Core.Maps;
+﻿// Copyright (c) Microsoft Corporation.// Licensed under the MIT license.
+
+using TplWorkflow.Core.Maps;
 using TplWorkflow.Models.Templates;
 using System.Collections.Generic;
 

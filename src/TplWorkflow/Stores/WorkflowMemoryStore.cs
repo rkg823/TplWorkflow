@@ -1,4 +1,6 @@
-﻿using TplWorkflow.Extensions.Validations;
+﻿// Copyright (c) Microsoft Corporation.// Licensed under the MIT license.
+
+using TplWorkflow.Extensions.Validations;
 using TplWorkflow.Stores.Interfaces;
 using System;
 using System.Collections.Generic;

@@ -1,4 +1,6 @@
-﻿using TplWorkflow.Core.Pipelines;
+﻿// Copyright (c) Microsoft Corporation.// Licensed under the MIT license.
+
+using TplWorkflow.Core.Pipelines;
 using System.Collections.Generic;
 
 namespace TplWorkflow.Core

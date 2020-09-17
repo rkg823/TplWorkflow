@@ -1,5 +1,6 @@
-﻿using TplWorkflow.Models.Templates.Interfaces;
-using Newtonsoft.Json.Linq;
+﻿// Copyright (c) Microsoft Corporation.// Licensed under the MIT license.
+
+using TplWorkflow.Models.Templates.Interfaces;
 using System.Collections.Generic;
 
 namespace TplWorkflow.Models.Templates
