@@ -1,13 +1,13 @@
-﻿using TplWorkflow.Core;
+﻿// Copyright (c) Microsoft Corporation.// Licensed under the MIT license.
+
+using TplWorkflow.Core;
 using TplWorkflow.Core.Common;
 using TplWorkflow.Core.Pipelines;
 using TplWorkflow.Exceptions;
-using TplWorkflow.Extensions.Validations;
 using TplWorkflow.Models.Templates;
 using TplWorkflow.Models.Templates.Interfaces;
 using TplWorkflow.Stores;
 using TplWorkflow.Stores.Interfaces;
-using Newtonsoft.Json.Linq;
 using System;
 
 namespace TplWorkflow.Extensions

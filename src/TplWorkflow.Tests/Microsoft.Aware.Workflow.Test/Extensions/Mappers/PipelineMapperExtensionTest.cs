@@ -1,4 +1,6 @@
-﻿using TplWorkflow.Exceptions;
+﻿// Copyright (c) Microsoft Corporation.// Licensed under the MIT license.
+
+using TplWorkflow.Exceptions;
 using TplWorkflow.Core.Pipelines;
 using TplWorkflow.Models.Templates;
 using TplWorkflow.Stores;

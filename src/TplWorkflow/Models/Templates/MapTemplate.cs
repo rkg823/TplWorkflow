@@ -1,4 +1,6 @@
-﻿using TplWorkflow.Models.Templates.Interfaces;
+﻿// Copyright (c) Microsoft Corporation.// Licensed under the MIT license.
+
+using TplWorkflow.Models.Templates.Interfaces;
 
 namespace TplWorkflow.Models.Templates
 {

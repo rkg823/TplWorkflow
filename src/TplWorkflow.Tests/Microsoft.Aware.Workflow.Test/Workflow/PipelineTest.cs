@@ -1,4 +1,5 @@
-﻿using TplWorkflow.Models;
+﻿// Copyright (c) Microsoft Corporation.// Licensed under the MIT license.
+
 using TplWorkflow.Core.Conditions;
 using TplWorkflow.Core.Pipelines;
 using TplWorkflow.Core.Steps;
@@ -7,7 +8,6 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using TplWorkflow.Stores;
 using TplWorkflow.Core;
 using TplWorkflow.Core.Maps;
 using TplWorkflow.Core.Common;

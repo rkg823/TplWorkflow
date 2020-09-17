@@ -1,4 +1,6 @@
-﻿using TplWorkflow.Extensions;
+﻿// Copyright (c) Microsoft Corporation.// Licensed under the MIT license.
+
+using TplWorkflow.Extensions;
 using TplWorkflow.Core.Conditions;
 using TplWorkflow.Core.Common;
 using TplWorkflow.Core.Steps;

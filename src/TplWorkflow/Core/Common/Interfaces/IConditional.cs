@@ -1,4 +1,5 @@
-﻿using TplWorkflow.Core.Conditions;
+﻿// Copyright (c) Microsoft Corporation.// Licensed under the MIT license.
+using TplWorkflow.Core.Conditions;
 
 namespace TplWorkflow.Core.Common.Interfaces
 {

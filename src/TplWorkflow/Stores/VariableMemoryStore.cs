@@ -1,4 +1,6 @@
-﻿using TplWorkflow.Core;
+﻿// Copyright (c) Microsoft Corporation.// Licensed under the MIT license.
+
+using TplWorkflow.Core;
 using TplWorkflow.Stores.Interfaces;
 using System.Collections.Concurrent;
 using System.Collections.Generic;

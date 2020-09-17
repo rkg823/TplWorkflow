@@ -1,4 +1,6 @@
-﻿using TplWorkflow.Models;
+﻿// Copyright (c) Microsoft Corporation.// Licensed under the MIT license.
+
+using TplWorkflow.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 

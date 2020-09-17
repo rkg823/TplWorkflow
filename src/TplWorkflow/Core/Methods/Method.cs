@@ -1,4 +1,6 @@
-﻿using TplWorkflow.Core.Common;
+﻿// Copyright (c) Microsoft Corporation.// Licensed under the MIT license.
+
+using TplWorkflow.Core.Common;
 using TplWorkflow.Core.Inputs;
 using System.Collections.Generic;
 using System.Reflection;
