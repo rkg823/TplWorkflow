@@ -4,6 +4,9 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <ProjectGuid>bbdb77da-aadf-4163-9a1a-949ef2eb42eb</ProjectGuid>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Version>1.0.0</Version>
+    <Description>TplWorkflow is a TPL based workflow engine targeting .NET Standard</Description>
+    <PackageTags>Workflow</PackageTags>
     <PackageReleaseNotes>
     TplWorkflow is a TPL based workflow engine targeting .NET Standard. It supports JSON template base task execution that adds workflow in an application. It can be fully integrated into an application written in C#.
 
