@@ -494,7 +494,12 @@ Following are a different kind of Outputs -
           "Scope": "local-scope"
      }
   ```
-  
+ ## Samples
+
+* [Monitoring Piepline](src/Samples/ConsoleApp/Monitoring/MonitoringSample)
+
+* [Notification Piepline](src/Samples/ConsoleApp/Notification/NotificationSample)
+
 ### Scope - The scope defines the region of a workflow where the variable binding is valid:
 
 Following are a different kind of Scopes -
