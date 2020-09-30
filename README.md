@@ -15,6 +15,12 @@ TplWorkflow is a TPL based workflow library targeting .NET Standard. It supports
 
 # Getting started
 
+## Installing
+Install the NuGet package "TplWorkflow"
+
+### Using nuget
+`Install-Package TplWorkflow`
+
 ## Host
 The workflow host is the service responsible for executing workflows
 
