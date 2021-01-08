@@ -158,17 +158,27 @@ namespace TplWorkflow.Extensions.Mappers
     public static MethodInfo MapMethodInfo(this StepTemplate template, string source)
     {
       Type instanceType = Type.GetType(source);
+      if(instanceType == null)
+      {
+        throw new WorkflowException($"Contract(name - {source}) not found.");
+      }
+      MethodInfo methodInfo;
       var paramTypes = template.Inputs.GetParameterTypes();
       var genericParamTypes = template.Inputs.GetParameterTypes(e => e.Generic);
       var nonGenericParamTypes = template.Inputs.GetParameterTypes(e => !e.Generic);
       if (genericParamTypes != null && genericParamTypes.Any())
       {
-        return SearchAndGetGenericMethod(instanceType,template.Method, genericParamTypes, nonGenericParamTypes);
+        methodInfo =  SearchAndGetGenericMethod(instanceType,template.Method, genericParamTypes, nonGenericParamTypes);
       }
       else
       {
-        return SearchAndGetMethod(instanceType,template.Method, paramTypes);
+        methodInfo = SearchAndGetMethod(instanceType,template.Method, paramTypes);
       }
+      if(methodInfo == null)
+      {
+        throw new WorkflowException($"Method(name - {template.Method}) not found.");
+      }
+      return methodInfo;
     }
 
     public static MethodInfo SearchAndGetMethod(Type type, string methodName, Type[] _params)
