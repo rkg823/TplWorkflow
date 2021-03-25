@@ -1,6 +1,7 @@
 # TplWorkflow
 
 ![Build And Publish](https://github.com/rkg823/TplWorkflow/workflows/Build%20And%20Publish%20Packages/badge.svg?branch=master)
+[![CodeQL](https://github.com/rkg823/TplWorkflow/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/rkg823/TplWorkflow/actions/workflows/codeql-analysis.yml)
 
 TplWorkflow is a TPL based workflow library targeting .NET Standard. It supports JSON template based task execution that adds workflow in an application. It can be fully integrated into an application written in C#.
 
