@@ -7,7 +7,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{CDACFDBF
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TplWorkflow", "src\TplWorkflow\TplWorkflow.csproj", "{BBDB77DA-AADF-4163-9A1A-949EF2EB42EB}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TplWorkflow.Test", "src\TplWorkflow.Tests\Microsoft.Aware.Workflow.Test\TplWorkflow.Test.csproj", "{13E3E40A-3D27-4E76-81C5-5C2E01325D60}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TplWorkflow.Test", "src\TplWorkflow.Tests\TplWorkflow.Test.csproj", "{13E3E40A-3D27-4E76-81C5-5C2E01325D60}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
