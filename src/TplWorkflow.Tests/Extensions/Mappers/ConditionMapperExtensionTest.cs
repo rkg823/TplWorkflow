@@ -1,16 +1,15 @@
 ﻿// Copyright (c) Microsoft Corporation.// Licensed under the MIT license.
-
-using TplWorkflow.Exceptions;
-using TplWorkflow.Extensions.Mappers;
-using TplWorkflow.Core.Conditions;
-using TplWorkflow.Models.Templates;
-using TplWorkflow.Stores;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Collections.Generic;
-using System.Linq;
-
 namespace TplWorkflow.Test
 {
+  using TplWorkflow.Exceptions;
+  using TplWorkflow.Extensions.Mappers;
+  using TplWorkflow.Core.Conditions;
+  using TplWorkflow.Models.Templates;
+  using TplWorkflow.Stores;
+  using Microsoft.VisualStudio.TestTools.UnitTesting;
+  using System.Collections.Generic;
+  using System.Linq;
+
   [TestClass]
   public class ConditionMapperExtensionTest
   {
@@ -22,6 +21,7 @@ namespace TplWorkflow.Test
       {
         Data = false
       };
+
       var context = new TemplateContext();
       template.Map(context);
     }
@@ -43,8 +43,10 @@ namespace TplWorkflow.Test
           }
         }
       };
+
       var context = new TemplateContext();
       var condition = template.Map(context) as ExpressionCondition;
+
       Assert.IsNotNull(condition.Inputs);
       Assert.AreEqual(1,condition.Inputs.Count);
       Assert.AreEqual(typeof(string), condition.Inputs.First().DataType);
@@ -58,9 +60,11 @@ namespace TplWorkflow.Test
         Kind = DefinitionStore.InlineCondition,
         Data = false
       };
+
       var context = new TemplateContext();
       var condition = template.Map(context) as InlineCondition;
       Assert.IsNotNull(condition.Data);
+
       Assert.AreEqual(false, condition.Data);
     }
 

@@ -1,16 +1,17 @@
 ﻿// Copyright (c) Microsoft Corporation.// Licensed under the MIT license.
-
-using TplWorkflow.Core.Common;
-
 namespace TplWorkflow.Core.Outputs
 {
+  using TplWorkflow.Core.Common;
+
   public abstract class Output
   {
     public string Name { get; }
-    protected Output(string name)
+
+    public abstract bool Resolve(ExecutionContext context);
+
+    public Output(string name)
     {
       Name = name;
     }
-    public abstract bool Resolve(ExecutionContext context);
   }
 }

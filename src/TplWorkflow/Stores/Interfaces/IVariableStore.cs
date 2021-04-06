@@ -1,10 +1,9 @@
 ﻿// Copyright (c) Microsoft Corporation.// Licensed under the MIT license.
-
-using TplWorkflow.Core;
-using System.Collections.Generic;
-
 namespace TplWorkflow.Stores.Interfaces
 {
+  using TplWorkflow.Core;
+  using System.Collections.Generic;
+
   public interface IVariableStore
   {
     bool Add(string key, object value);

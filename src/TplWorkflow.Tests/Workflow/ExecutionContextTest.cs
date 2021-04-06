@@ -1,11 +1,10 @@
 ﻿// Copyright (c) Microsoft Corporation.// Licensed under the MIT license.
-
-using TplWorkflow.Core.Common;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Threading.Tasks;
-
 namespace TplWorkflow.Test
 {
+  using TplWorkflow.Core.Common;
+  using Microsoft.VisualStudio.TestTools.UnitTesting;
+  using System.Threading.Tasks;
+
   [TestClass]
   public class ExecutionContextTest
   {
@@ -14,7 +13,9 @@ namespace TplWorkflow.Test
     {
       var input = "some data";
       var er = new AsyncResult<object>(input);
+
       var result  = await er.Value();
+
       Assert.IsNotNull(result);
       Assert.AreEqual(input, result, "Resolve method returns incorrect data.");
     }
@@ -25,7 +26,9 @@ namespace TplWorkflow.Test
       object input = "some data";
       var task = Task.FromResult(input);
       var er = new AsyncResult<object>(task);
+
       var result = await er.Value();
+
       Assert.IsNotNull(result);
       Assert.AreEqual(input, result, "Resolve method returns incorrect data.");
     }

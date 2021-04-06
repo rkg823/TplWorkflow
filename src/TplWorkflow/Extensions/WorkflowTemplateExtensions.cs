@@ -1,17 +1,15 @@
 ﻿// Copyright (c) Microsoft Corporation.// Licensed under the MIT license.
-
-using TplWorkflow.Core;
-using TplWorkflow.Core.Common;
-using TplWorkflow.Core.Pipelines;
-using TplWorkflow.Exceptions;
-using TplWorkflow.Models.Templates;
-using TplWorkflow.Models.Templates.Interfaces;
-using TplWorkflow.Stores;
-using TplWorkflow.Stores.Interfaces;
-using System;
-
 namespace TplWorkflow.Extensions
 {
+  using TplWorkflow.Core.Common;
+  using TplWorkflow.Core.Pipelines;
+  using TplWorkflow.Exceptions;
+  using TplWorkflow.Models.Templates;
+  using TplWorkflow.Models.Templates.Interfaces;
+  using TplWorkflow.Stores;
+  using TplWorkflow.Stores.Interfaces;
+  using System;
+
   public static class WorkflowTemplateExtensions
   {
     public static bool OfKind<T>(this IKind kind)
@@ -35,10 +33,12 @@ namespace TplWorkflow.Extensions
       {
         return (context) => context.PipelineVariables;
       }
+
       if (template.IsGlobalScope())
       {
         return (context) => context.GlobalVariables;
       }
+
       throw new WorkflowException($"{template.Scope} scope not supported.");
     }
 
@@ -61,7 +61,6 @@ namespace TplWorkflow.Extensions
     {
       return template.Kind != DefinitionStore.LinkPipeline;
     }
-
     public static bool NotLinkCondition(this IKind template)
     {
       return template.Kind != DefinitionStore.LinkCondition;

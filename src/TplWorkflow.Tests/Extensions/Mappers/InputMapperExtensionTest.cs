@@ -35,6 +35,7 @@ namespace TplWorkflow.Test
         DataType = typeof(string).AssemblyQualifiedName,
         Name = "test",
       };
+
       template.Map();
     }
 
@@ -56,8 +57,10 @@ namespace TplWorkflow.Test
           }
         }
       };
+
       var input = template.Map() as ExpressionInput;
       var result = input.Method.DynamicInvoke(new[] { "test" });
+
       Assert.IsNotNull(input.Inputs);
       Assert.IsNotNull(input.Method);
       Assert.IsNotNull(input.DataType);
@@ -75,7 +78,9 @@ namespace TplWorkflow.Test
         Data = "some data",
         Kind = DefinitionStore.InlineInput
       };
+
       var input = template.Map() as InlineInput;
+
       Assert.IsNotNull(input.DataType);
       Assert.IsNotNull(input.Data);
       Assert.AreEqual(typeof(string), input.DataType);
@@ -90,7 +95,9 @@ namespace TplWorkflow.Test
         Kind = DefinitionStore.StepInput,
         DataType = typeof(string).AssemblyQualifiedName,
       };
+
       var input = template.Map() as StepInput;
+
       Assert.IsNotNull(input.DataType);
       Assert.AreEqual(typeof(string), input.DataType);
     }
@@ -105,7 +112,9 @@ namespace TplWorkflow.Test
         Kind = DefinitionStore.VariableInput,
         Scope = DefinitionStore.GlobalScope
       };
+
       var input = template.Map() as VariableInput;
+
       Assert.IsNotNull(input.Name);
       Assert.IsNotNull(input.DataType);
       Assert.IsNotNull(input.ResolveVariables);
@@ -123,7 +132,9 @@ namespace TplWorkflow.Test
         Kind = DefinitionStore.VariableInput,
         Scope = DefinitionStore.LocalScope
       };
+
       var input = template.Map() as VariableInput;
+
       Assert.IsNotNull(input.Name);
       Assert.IsNotNull(input.DataType);
       Assert.IsNotNull(input.ResolveVariables);
@@ -141,12 +152,15 @@ namespace TplWorkflow.Test
         Name = "test",
         Kind = DefinitionStore.VariableInput,
       };
+
       var input = template.Map() as VariableInput;
       var pstore = new Mock<IVariableStore>();
       var gstore = new Mock<IVariableStore>();
       pstore.Setup(e => e.Get(It.IsAny<string>())).Returns(data);
+
       var context = new ExecutionContext("some data",sp,gstore.Object,pstore.Object);
       var result =  input.Resolve(context);
+      
       Assert.IsNotNull(result);
       Assert.AreEqual(data, result);
     }

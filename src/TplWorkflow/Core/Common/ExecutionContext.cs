@@ -1,13 +1,12 @@
 ﻿// Copyright (c) Microsoft Corporation.// Licensed under the MIT license.
-
-using TplWorkflow.Exceptions;
-using TplWorkflow.Stores.Interfaces;
-using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-
 namespace TplWorkflow.Core.Common
 {
+  using TplWorkflow.Exceptions;
+  using TplWorkflow.Stores.Interfaces;
+  using Microsoft.Extensions.DependencyInjection;
+  using System;
+  using System.Collections.Generic;
+
   public class ExecutionContext
   {
     public IServiceProvider ServiceProvider { get; }
@@ -17,66 +16,70 @@ namespace TplWorkflow.Core.Common
 
     public ExecutionContext(object input, IServiceProvider serviceProvider)
     {
-      this.ServiceProvider = serviceProvider;
-      this.CurrentState = input;
-      this.GlobalVariables = serviceProvider.GetService<IVariableStore>();
-      this.PipelineVariables = serviceProvider.GetService<IVariableStore>();
+      ServiceProvider = serviceProvider;
+      CurrentState = input;
+      GlobalVariables = serviceProvider.GetService<IVariableStore>();
+      PipelineVariables = serviceProvider.GetService<IVariableStore>();
     }
+
     public ExecutionContext(object input, IServiceProvider serviceProvider, IList<Variable> globalVariables)
     {
-      this.ServiceProvider = serviceProvider;
-      this.CurrentState = input;
-      this.GlobalVariables =  serviceProvider.GetService<IVariableStore>();
-      this.PipelineVariables = serviceProvider.GetService<IVariableStore>();
-      InitVariables(this.GlobalVariables, globalVariables);
+      ServiceProvider = serviceProvider;
+      CurrentState = input;
+      GlobalVariables = serviceProvider.GetService<IVariableStore>();
+      PipelineVariables = serviceProvider.GetService<IVariableStore>();
+
+      InitVariables(GlobalVariables, globalVariables);
     }
 
     public ExecutionContext(object input, IServiceProvider serviceProvider, IList<Variable> globalVariables, IList<Variable> pipelineVariables)
     {
-      this.ServiceProvider = serviceProvider;
-      this.CurrentState = input;
-      this.GlobalVariables = serviceProvider.GetService<IVariableStore>();
-      this.PipelineVariables = serviceProvider.GetService<IVariableStore>();
-      InitVariables(this.GlobalVariables, globalVariables);
-      InitVariables(this.PipelineVariables, pipelineVariables);
+      ServiceProvider = serviceProvider;
+      CurrentState = input;
+      GlobalVariables = serviceProvider.GetService<IVariableStore>();
+      PipelineVariables = serviceProvider.GetService<IVariableStore>();
+
+      InitVariables(GlobalVariables, globalVariables);
+      InitVariables(PipelineVariables, pipelineVariables);
     }
 
     public ExecutionContext(object input, IServiceProvider serviceProvider, IVariableStore globalVariables)
     {
-      this.ServiceProvider = serviceProvider;
-      this.CurrentState = input;
-      this.GlobalVariables = globalVariables ?? serviceProvider.GetService<IVariableStore>();
-      this.PipelineVariables = serviceProvider.GetService<IVariableStore>();
+      ServiceProvider = serviceProvider;
+      CurrentState = input;
+      GlobalVariables = globalVariables ?? serviceProvider.GetService<IVariableStore>();
+      PipelineVariables = serviceProvider.GetService<IVariableStore>();
     }
 
     public ExecutionContext(object input, IServiceProvider serviceProvider, IVariableStore globalVariables, IList<Variable> pipelineVariables)
     {
-      this.ServiceProvider = serviceProvider;
-      this.CurrentState = input;
-      this.GlobalVariables = globalVariables?? serviceProvider.GetService<IVariableStore>();
-      this.PipelineVariables = serviceProvider.GetService<IVariableStore>();
-      InitVariables(this.PipelineVariables, pipelineVariables);
+      ServiceProvider = serviceProvider;
+      CurrentState = input;
+      GlobalVariables = globalVariables ?? serviceProvider.GetService<IVariableStore>();
+      PipelineVariables = serviceProvider.GetService<IVariableStore>();
+
+      InitVariables(PipelineVariables, pipelineVariables);
     }
 
     public ExecutionContext(object input, IServiceProvider serviceProvider, IVariableStore globalVariables, IVariableStore pipelineVariables)
     {
-      this.ServiceProvider = serviceProvider;
-      this.CurrentState = input;
-      this.GlobalVariables = globalVariables ?? serviceProvider.GetService<IVariableStore>();
-      this.PipelineVariables = pipelineVariables ?? serviceProvider.GetService<IVariableStore>();
+      ServiceProvider = serviceProvider;
+      CurrentState = input;
+      GlobalVariables = globalVariables ?? serviceProvider.GetService<IVariableStore>();
+      PipelineVariables = pipelineVariables ?? serviceProvider.GetService<IVariableStore>();
     }
 
     public ExecutionContext(IServiceProvider serviceProvider)
     {
-      this.ServiceProvider = serviceProvider;
-      this.GlobalVariables = serviceProvider.GetService<IVariableStore>();
+      ServiceProvider = serviceProvider;
+      GlobalVariables = serviceProvider.GetService<IVariableStore>();
     }
 
     private void InitVariables(IVariableStore store, IList<Variable> variables)
     {
-      foreach(var variable in variables)
+      foreach (var variable in variables)
       {
-        if (!store.Add(variable)) 
+        if (!store.Add(variable))
         {
           throw new WorkflowException($"Variable (name - {variable.Name}) can not be modified ater initilization.");
         }

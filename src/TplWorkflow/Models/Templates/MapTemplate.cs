@@ -1,9 +1,8 @@
 ﻿// Copyright (c) Microsoft Corporation.// Licensed under the MIT license.
-
-using TplWorkflow.Models.Templates.Interfaces;
-
 namespace TplWorkflow.Models.Templates
 {
+  using TplWorkflow.Models.Templates.Interfaces;
+
   public class MapTemplate: IKind
   {
     public string Kind { get; set; }

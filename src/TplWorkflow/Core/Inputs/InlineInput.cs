@@ -1,18 +1,17 @@
 ﻿// Copyright (c) Microsoft Corporation.// Licensed under the MIT license.
-
-using TplWorkflow.Core.Common;
-using System;
-
 namespace TplWorkflow.Core.Inputs
 {
-  public class InlineInput: Input
+  using TplWorkflow.Core.Common;
+  using System;
+
+  public class InlineInput : Input
   {
-    public InlineInput(Type type, object data)
-      : base(type)
+    public object Data { get; }
+
+    public InlineInput(Type type, object data) : base(type)
     {
       Data = data;
     }
-    public object Data { get; }
 
     public override object Resolve(ExecutionContext context)
     {

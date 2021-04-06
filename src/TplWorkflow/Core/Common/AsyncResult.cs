@@ -1,9 +1,8 @@
 ﻿// Copyright (c) Microsoft Corporation.// Licensed under the MIT license.
-
-using System.Threading.Tasks;
-
 namespace TplWorkflow.Core.Common
 {
+  using System.Threading.Tasks;
+
   public class AsyncResult<T>
   {
     private Task<T> Data { get; }
@@ -18,7 +17,7 @@ namespace TplWorkflow.Core.Common
 
     public Task<T> Value()
     {
-     return Data;
+      return Data;
     }
   }
 }

@@ -1,20 +1,20 @@
 ﻿// Copyright (c) Microsoft Corporation.// Licensed under the MIT license.
-
-using TplWorkflow.Extensions;
-using TplWorkflow.Extensions.Mappers;
-using TplWorkflow.Extensions.Validations;
-using TplWorkflow.Models;
-using TplWorkflow.Models.Templates;
-using TplWorkflow.Services.Interfaces;
-using TplWorkflow.Stores.Interfaces;
-using Microsoft.Extensions.DependencyInjection;
-using System;
-
 namespace TplWorkflow.Services
 {
+  using TplWorkflow.Extensions;
+  using TplWorkflow.Extensions.Mappers;
+  using TplWorkflow.Extensions.Validations;
+  using TplWorkflow.Models;
+  using TplWorkflow.Models.Templates;
+  using TplWorkflow.Services.Interfaces;
+  using TplWorkflow.Stores.Interfaces;
+  using Microsoft.Extensions.DependencyInjection;
+  using System;
+
   public partial class WorkflowLoader: IWorklowLoader
   {
     private readonly IWorkflowStore workflowStore;
+
     public WorkflowLoader(IWorkflowStore workflowStore)
     {
       this.workflowStore = workflowStore;
@@ -25,17 +25,21 @@ namespace TplWorkflow.Services
       var sc = new ServiceCollection();
       configureServices(sc);
       var context = new TemplateContext();
+
       return Register(factory(),context, sc);
     }
+
     public WorkflowDefinition From(WorkflowTemplate template)
     {
       return Register(template);
     }
+
     public WorkflowDefinition From(WorkflowTemplate template, Action<ServiceCollection> configureServices)
     {
       var sc = new ServiceCollection();
       configureServices(sc);
       var context = new TemplateContext();
+
       return Register(template, context, sc);
     }
 
@@ -45,13 +49,16 @@ namespace TplWorkflow.Services
       template.Version.Required(1, int.MaxValue, "Template should have a version.");
       services = services ?? new ServiceCollection();
       context = context ?? new TemplateContext();
+
       var sp = services
         .ConfigureDependency(template.Dependencies)
         .ConfigureStore(workflowStore)
         .BuildServiceProvider(); 
+
       var wf = template.Map(context);
       workflowStore.Update((wf, sp));
-      return template as WorkflowDefinition;
+
+      return template;
     }
   }
 }

@@ -1,18 +1,17 @@
 ﻿// Copyright (c) Microsoft Corporation.// Licensed under the MIT license.
-
-using TplWorkflow.Exceptions;
-using TplWorkflow.Core.Pipelines;
-using TplWorkflow.Models.Templates;
-using TplWorkflow.Stores;
-using TplWorkflow.Test.Mock;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Collections.Generic;
-using TplWorkflow.Extensions.Mappers;
-using System;
-using Microsoft.Extensions.DependencyInjection;
-
 namespace TplWorkflow.Test
 {
+  using TplWorkflow.Exceptions;
+  using TplWorkflow.Core.Pipelines;
+  using TplWorkflow.Models.Templates;
+  using TplWorkflow.Stores;
+  using TplWorkflow.Test.Mock;
+  using Microsoft.VisualStudio.TestTools.UnitTesting;
+  using System.Collections.Generic;
+  using TplWorkflow.Extensions.Mappers;
+  using System;
+  using Microsoft.Extensions.DependencyInjection;
+
   [TestClass]
   public class PipelineMapperExtensionTest
   {
@@ -34,6 +33,7 @@ namespace TplWorkflow.Test
         Kind = DefinitionStore.SequentialPipeline,
         Steps = null
       };
+
       template.Map(context);
     }
 
@@ -46,6 +46,7 @@ namespace TplWorkflow.Test
       {
         Steps = null
       };
+
       template.Map(context);
     }
 
@@ -66,7 +67,9 @@ namespace TplWorkflow.Test
           }
         }
       };
+
       var pipeline = template.Map(context) as ParallelPipeline;
+
       Assert.IsNotNull(pipeline.Steps);
       Assert.IsNull(pipeline.Condition);
       Assert.AreEqual(1,pipeline.Steps.Count);
@@ -94,7 +97,9 @@ namespace TplWorkflow.Test
           }
         }
       };
+
       var pipeline = template.Map(context) as ParallelPipeline;
+
       Assert.IsNotNull(pipeline.Steps);
       Assert.IsNotNull(pipeline.Condition);
       Assert.AreEqual(1, pipeline.Steps.Count);
@@ -117,7 +122,9 @@ namespace TplWorkflow.Test
           }
         }
       };
+
       var pipeline = template.Map(context) as SequentialPipeline;
+
       Assert.IsNotNull(pipeline.Steps);
       Assert.IsNull(pipeline.Condition);
       Assert.AreEqual(1, pipeline.Steps.Count);
@@ -145,11 +152,12 @@ namespace TplWorkflow.Test
           }
         }
       };
+
       var pipeline = template.Map(context) as SequentialPipeline;
+
       Assert.IsNotNull(pipeline.Steps);
       Assert.IsNotNull(pipeline.Condition);
       Assert.AreEqual(1, pipeline.Steps.Count);
     }
-
   }
 }

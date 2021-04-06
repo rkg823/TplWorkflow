@@ -1,9 +1,8 @@
 ﻿// Copyright (c) Microsoft Corporation.// Licensed under the MIT license.
-
-using System.Collections.Generic;
-
 namespace TplWorkflow.Models.Templates
 {
+  using System.Collections.Generic;
+
   public class WorkflowTemplate: WorkflowDefinition
   {
     public string Description { get; set; }

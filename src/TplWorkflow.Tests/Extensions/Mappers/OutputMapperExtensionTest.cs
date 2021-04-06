@@ -1,20 +1,19 @@
 ﻿// Copyright (c) Microsoft Corporation.// Licensed under the MIT license.
-
-using TplWorkflow.Exceptions;
-using TplWorkflow.Extensions.Mappers;
-using TplWorkflow.Core.Outputs;
-using TplWorkflow.Models.Templates;
-using TplWorkflow.Stores;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Collections.Generic;
-using TplWorkflow.Stores.Interfaces;
-using Moq;
-using TplWorkflow.Core.Common;
-using System;
-using Microsoft.Extensions.DependencyInjection;
-
 namespace TplWorkflow.Test
 {
+  using TplWorkflow.Exceptions;
+  using TplWorkflow.Extensions.Mappers;
+  using TplWorkflow.Core.Outputs;
+  using TplWorkflow.Models.Templates;
+  using TplWorkflow.Stores;
+  using Microsoft.VisualStudio.TestTools.UnitTesting;
+  using System.Collections.Generic;
+  using TplWorkflow.Stores.Interfaces;
+  using Moq;
+  using TplWorkflow.Core.Common;
+  using System;
+  using Microsoft.Extensions.DependencyInjection;
+
   [TestClass]
   public class OutputMapperExtensionTest
   {
@@ -35,6 +34,7 @@ namespace TplWorkflow.Test
         Name = "test",
         Scope = DefinitionStore.GlobalScope
       };
+
       template.Map();
     }
     [TestMethod]
@@ -45,14 +45,17 @@ namespace TplWorkflow.Test
         Name = "test",
         Kind = DefinitionStore.StepOutput,
       };
+
       var output = template.Map() as StepOutput;
       var pstore = new Mock<IVariableStore>();
       var gstore = new Mock<IVariableStore>();
+
       pstore.Setup(e => e.Add(It.IsAny<string>(), It.IsAny<object>())).Returns(true);
       var context = new ExecutionContext("some data", sp, gstore.Object, pstore.Object);
 
       var resolved = output.ResolveVariables(context);
       var result = output.Resolve(context);
+
       Assert.IsNotNull(result);
       Assert.AreEqual(true, result);
     }
@@ -67,7 +70,9 @@ namespace TplWorkflow.Test
         Kind = DefinitionStore.StepOutput,
         Scope = DefinitionStore.GlobalScope
       };
+
       var output = template.Map() as StepOutput;
+
       Assert.IsNotNull(output.Name);
       Assert.IsNotNull(output.ResolveVariables);
       Assert.AreEqual("test", output.Name);
@@ -82,7 +87,9 @@ namespace TplWorkflow.Test
         Kind = DefinitionStore.StepOutput,
         Scope = DefinitionStore.LocalScope
       };
+
       var output = template.Map() as StepOutput;
+
       Assert.IsNotNull(output.Name);
       Assert.IsNotNull(output.ResolveVariables);
       Assert.AreEqual("test", output.Name);
@@ -108,7 +115,9 @@ namespace TplWorkflow.Test
           }
         }
       };
+
       var output = template.Map() as ExpressionOutput;
+
       Assert.IsNotNull(output.Name);
       Assert.IsNotNull(output.ResolveVariables);
       Assert.IsNotNull(output.Method);
@@ -136,7 +145,9 @@ namespace TplWorkflow.Test
           }
         }
       };
+
       var output = template.Map() as ExpressionOutput;
+
       Assert.IsNotNull(output.Name);
       Assert.IsNotNull(output.ResolveVariables);
       Assert.IsNotNull(output.Method);
@@ -165,7 +176,9 @@ namespace TplWorkflow.Test
           }
         }
       };
+
       var output = template.Map() as ExpressionOutput;
+
       Assert.IsNotNull(output.Name);
       Assert.IsNotNull(output.ResolveVariables);
       Assert.IsNotNull(output.Method);

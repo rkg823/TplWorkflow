@@ -1,22 +1,21 @@
 ﻿// Copyright (c) Microsoft Corporation.// Licensed under the MIT license.
-
-using TplWorkflow.Core.Common;
-using TplWorkflow.Core.Methods;
-using TplWorkflow.Core.Steps;
-using TplWorkflow.Exceptions;
-using TplWorkflow.Extensions.Mappers;
-using TplWorkflow.Models.Templates;
-using TplWorkflow.Stores;
-using TplWorkflow.Stores.Interfaces;
-using TplWorkflow.Test.Mock;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Moq;
-using System;
-using System.Collections.Generic;
-
 namespace TplWorkflow.Test.Extensions.Mappers
 {
+  using TplWorkflow.Core.Common;
+  using TplWorkflow.Core.Methods;
+  using TplWorkflow.Core.Steps;
+  using TplWorkflow.Exceptions;
+  using TplWorkflow.Extensions.Mappers;
+  using TplWorkflow.Models.Templates;
+  using TplWorkflow.Stores;
+  using TplWorkflow.Stores.Interfaces;
+  using TplWorkflow.Test.Mock;
+  using Microsoft.Extensions.DependencyInjection;
+  using Microsoft.VisualStudio.TestTools.UnitTesting;
+  using Moq;
+  using System;
+  using System.Collections.Generic;
+
   [TestClass]
   public class StepMapperExtensionTest
   {
@@ -44,6 +43,7 @@ namespace TplWorkflow.Test.Extensions.Mappers
           }
         }
       };
+
       var step = template.Map(context) as AsyncStep;
     }
 
@@ -63,7 +63,9 @@ namespace TplWorkflow.Test.Extensions.Mappers
           }
         }
       };
+
       var step = template.Map(context) as AsyncStep;
+
       Assert.IsNull(step.Condition);
       Assert.IsNotNull(step.Method);
       Assert.IsNotNull(step.Method.Inputs);
@@ -87,6 +89,7 @@ namespace TplWorkflow.Test.Extensions.Mappers
           Kind = DefinitionStore.InlineCondition,
         }
       };
+
       var step = template.Map(context) as AsyncStep;
     
       Assert.IsNotNull(step.Method.Inputs);
@@ -116,6 +119,7 @@ namespace TplWorkflow.Test.Extensions.Mappers
          }
        }
       };
+
       var step = template.Map(context) as AsyncStep;
 
       Assert.IsNull(step.Condition);
@@ -143,13 +147,16 @@ namespace TplWorkflow.Test.Extensions.Mappers
          }
        }
       };
+
       var pstore = new Mock<IVariableStore>();
       var gstore = new Mock<IVariableStore>();
+
       pstore.Setup(e => e.Add(It.IsAny<string>(), It.IsAny<object>())).Returns(true);
       var ec = new ExecutionContext("some data", sp, gstore.Object, pstore.Object);
 
       var step = template.Map(context) as AsyncStep;
       var result = step.Resolve(ec);
+
       Assert.IsNotNull(result);
       Assert.AreEqual(true, result);
     }
@@ -164,7 +171,9 @@ namespace TplWorkflow.Test.Extensions.Mappers
         Kind = DefinitionStore.PipelineStep,
         Pipeline = new PipelineTemplate(),
       };
+
       var step = template.Map(context) as PipelineStep;
+
       Assert.IsNotNull(step.Pipeline);
     }
 
@@ -180,7 +189,9 @@ namespace TplWorkflow.Test.Extensions.Mappers
           Steps = new List<StepTemplate>()
         },
       };
+
       var step = template.Map(context) as PipelineStep;
+
       Assert.IsNotNull(step.Pipeline);
     }
 
@@ -194,7 +205,9 @@ namespace TplWorkflow.Test.Extensions.Mappers
         Name = "test",
         Version = 1      
       };
+
       var step = template.Map(context) as WorkflowStep;
+
       Assert.AreEqual(1,step.Version);
       Assert.AreEqual("test", step.Name);
     }

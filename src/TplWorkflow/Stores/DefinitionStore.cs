@@ -1,16 +1,15 @@
 ﻿// Copyright (c) Microsoft Corporation.// Licensed under the MIT license.
-
-using TplWorkflow.Exceptions;
-using TplWorkflow.Core.Conditions;
-using TplWorkflow.Core.Inputs;
-using TplWorkflow.Core.Outputs;
-using TplWorkflow.Core.Pipelines;
-using TplWorkflow.Core.Steps;
-using System;
-using System.Collections.Generic;
-
 namespace TplWorkflow.Stores
 {
+  using TplWorkflow.Exceptions;
+  using TplWorkflow.Core.Conditions;
+  using TplWorkflow.Core.Inputs;
+  using TplWorkflow.Core.Outputs;
+  using TplWorkflow.Core.Pipelines;
+  using TplWorkflow.Core.Steps;
+  using System;
+  using System.Collections.Generic;
+
   public static class DefinitionStore
   {
     public static readonly string ParallelPipeline = "parallel-pipeline";
@@ -47,7 +46,6 @@ namespace TplWorkflow.Stores
     public static readonly string ExpressionMap = "expression-map";
     public static readonly string ExpressionMap1 = "exp-map";
 
-
     private static readonly Dictionary<string, Type> defination = new Dictionary<string, Type>
     {
       { ParallelPipeline, typeof(ParallelPipeline)},
@@ -83,8 +81,10 @@ namespace TplWorkflow.Stores
       if (!defination.ContainsKey(key.ToLower())) {
         throw new WorkflowException($"Kind {key} is not supported.");
       }
+
       return defination[key];
     }
+
     public static void Add(string key, Type type)
     {
       defination.Add(key, type);

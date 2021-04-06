@@ -1,21 +1,21 @@
 ﻿// Copyright (c) Microsoft Corporation.// Licensed under the MIT license.
-
-using System;
-using System.Threading.Tasks;
-using TplWorkflow.Stores.Interfaces;
-using TplWorkflow.Extensions.Validations;
-using TplWorkflow.Exceptions;
-using TplWorkflow.Core.Common;
-using TplWorkflow.Services.Interfaces;
-using System.Collections.Generic;
-using System.Linq;
-using TplWorkflow.Models;
-
 namespace TplWorkflow
 {
+  using System;
+  using System.Threading.Tasks;
+  using TplWorkflow.Stores.Interfaces;
+  using TplWorkflow.Extensions.Validations;
+  using TplWorkflow.Exceptions;
+  using TplWorkflow.Core.Common;
+  using TplWorkflow.Services.Interfaces;
+  using System.Collections.Generic;
+  using System.Linq;
+  using TplWorkflow.Models;
+
   public class WorkflowHost : IWorkflowHost
   {
     private readonly IWorkflowStore workflowStore;
+
     public WorkflowHost(IWorkflowStore workflowStore)
     {
       this.workflowStore = workflowStore;
@@ -26,14 +26,17 @@ namespace TplWorkflow
     {
       var (wf, sp) = GetWorkflow(name, version);
       var result = await InvokeAsync(wf, sp);
+
       return await result.Value();
     }
 
     public async Task<object> StartAsync(string name, int version, object data)
     {
       data.Required("Data is required to invoke workflow");
+
       var (wf, sp) = GetWorkflow(name, version);
       var result = await InvokeAsync(wf, sp, data);
+
       return await result.Value();
     }
 
@@ -42,7 +45,12 @@ namespace TplWorkflow
     public WorkflowDefinition Get(string name, int version)
     {
       var (workflow, _) = workflowStore.Get(name, version);
-      if (workflow == null) return null;
+
+      if (workflow == null)
+      {
+        return null;
+      }
+
       return new WorkflowDefinition { Name = workflow.Name, Version = workflow.Version };
     }
     public IList<WorkflowDefinition> Get()
@@ -54,6 +62,7 @@ namespace TplWorkflow
         Version = e.workflow.Version
       }).ToList();
     }
+
     public bool Contains(string name, int version)
     {
       return workflowStore.Contains(name, version);
@@ -66,7 +75,7 @@ namespace TplWorkflow
 
     public bool Remove(string name, int version)
     {
-     return workflowStore.Remove(name, version);
+      return workflowStore.Remove(name, version);
     }
 
     #region Private
@@ -74,15 +83,18 @@ namespace TplWorkflow
     {
       name.Required("Name is required to invoke workflow");
       var data = workflowStore.Get(name, version);
+
       if (data.workflow == null || data.provider == null)
       {
-          throw new WorkflowrRgistrationException(name, version);
+        throw new WorkflowrRgistrationException(name, version);
       }
+
       return data;
     }
     private Task<AsyncResult<object>> InvokeAsync(Core.WorkflowInstance workFlow, IServiceProvider sp, object data = null)
     {
       var context = new ExecutionContext(data, sp, workFlow.Variables);
+
       return workFlow.Pipeline.Resolve(context);
     }
     #endregion

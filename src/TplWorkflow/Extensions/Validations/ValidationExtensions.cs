@@ -1,11 +1,10 @@
 ﻿// Copyright (c) Microsoft Corporation.// Licensed under the MIT license.
-
-using TplWorkflow.Exceptions;
-using System.Collections.Generic;
-using System.Globalization;
-
 namespace TplWorkflow.Extensions.Validations
 {
+  using TplWorkflow.Exceptions;
+  using System.Collections.Generic;
+  using System.Globalization;
+
   /// <summary>
   /// Defines the <see cref="ValidationExtension" />.
   /// </summary>

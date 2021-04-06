@@ -1,15 +1,14 @@
 ﻿// Copyright (c) Microsoft Corporation.// Licensed under the MIT license.
-
-using TplWorkflow.Core.Conditions;
-using TplWorkflow.Core.Common;
-using TplWorkflow.Core.Common.Interfaces;
-using TplWorkflow.Core.Maps;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-
 namespace TplWorkflow.Core.Pipelines
 {
-  public abstract class Pipeline: IConditional
+  using TplWorkflow.Core.Conditions;
+  using TplWorkflow.Core.Common;
+  using TplWorkflow.Core.Common.Interfaces;
+  using TplWorkflow.Core.Maps;
+  using System.Collections.Generic;
+  using System.Threading.Tasks;
+
+  public abstract class Pipeline : IConditional
   {
     public Condition Condition { get; }
     public IList<Variable> Variables { get; }

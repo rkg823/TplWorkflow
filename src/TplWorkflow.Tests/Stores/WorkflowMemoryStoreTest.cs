@@ -1,11 +1,10 @@
 ﻿// Copyright (c) Microsoft Corporation.// Licensed under the MIT license.
-
-using TplWorkflow.Stores;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-
 namespace TplWorkflow.Test.Stores
 {
+  using TplWorkflow.Stores;
+  using Microsoft.Extensions.DependencyInjection;
+  using Microsoft.VisualStudio.TestTools.UnitTesting;
+
   [TestClass]
   public class WorkflowMemoryStoreTest
   {
@@ -30,8 +29,10 @@ namespace TplWorkflow.Test.Stores
     {
       var wf = new Core.WorkflowInstance("test", 1, "test", null, null);
       var store = new WorkflowMemoryStore();
+
       store.Add((wf, null));
       var update = store.Update((wf, sp));
+
       Assert.IsTrue(update);
     }
 
@@ -40,7 +41,9 @@ namespace TplWorkflow.Test.Stores
     {
       var wf = new Core.WorkflowInstance("test", 1, "test", null, null);
       var store = new WorkflowMemoryStore();
+
       var add = store.Add((wf, sp));
+
       Assert.IsTrue(add);
     }
 
@@ -50,9 +53,11 @@ namespace TplWorkflow.Test.Stores
       var wf1 = new Core.WorkflowInstance("test1", 1, "test", null, null);
       var wf2 = new Core.WorkflowInstance("test2", 1, "test", null, null);
       var store = new WorkflowMemoryStore();
+
       store.Add((wf1, sp));
       store.Add((wf2, sp));
       var get = store.FirstOrDefault(e => e.workflow.Name == "test1");
+
       Assert.IsNotNull(get);
       Assert.IsNotNull(get.workflow);
       Assert.IsNotNull(get.provider);
@@ -65,9 +70,11 @@ namespace TplWorkflow.Test.Stores
       var wf1 = new Core.WorkflowInstance("test1", 1, "test", null, null);
       var wf2 = new Core.WorkflowInstance("test2", 1, "test", null, null);
       var store = new WorkflowMemoryStore();
+
       store.Add((wf1, sp));
       store.Add((wf2, sp));
       var get = store.Where(e => e.workflow.Name == "test1");
+
       Assert.IsNotNull(get);
       Assert.AreEqual(1, get.Count);
       Assert.AreEqual("test1", get[0].workflow.Name);
@@ -79,9 +86,11 @@ namespace TplWorkflow.Test.Stores
       var wf1 = new Core.WorkflowInstance("test1", 1, "test", null, null);
       var wf2 = new Core.WorkflowInstance("test2", 1, "test", null, null);
       var store = new WorkflowMemoryStore();
+
       store.Add((wf1, sp));
       store.Add((wf2, sp));
       var get = store.Get();
+
       Assert.IsNotNull(get);
       Assert.AreEqual(2, get.Count);
     }
@@ -92,9 +101,11 @@ namespace TplWorkflow.Test.Stores
       var wf1 = new Core.WorkflowInstance("test1", 1, "test", null, null);
       var wf2 = new Core.WorkflowInstance("test2", 1, "test", null, null);
       var store = new WorkflowMemoryStore();
+
       store.Add((wf1, sp));
       store.Add((wf2, sp));
       var get = store.Get("test2");
+
       Assert.IsNotNull(get);
       Assert.AreEqual("test2", get.workflow.Name);
     }
@@ -105,9 +116,11 @@ namespace TplWorkflow.Test.Stores
       var wf1 = new Core.WorkflowInstance("test1", 1, "test", null, null);
       var wf2 = new Core.WorkflowInstance("test2", 1, "test", null, null);
       var store = new WorkflowMemoryStore();
+
       store.Add((wf1, sp));
       store.Add((wf2, sp));
       var get = store.Get("test2",1);
+
       Assert.IsNotNull(get);
       Assert.AreEqual("test2", get.workflow.Name);
       Assert.AreEqual(1, get.workflow.Version);
@@ -119,9 +132,11 @@ namespace TplWorkflow.Test.Stores
       var wf1 = new Core.WorkflowInstance("test1", 1, "test", null, null);
       var wf2 = new Core.WorkflowInstance("test2", 1, "test", null, null);
       var store = new WorkflowMemoryStore();
+
       store.Add((wf1, sp));
       store.Add((wf2, sp));
       var get = store.Any(e=> e.workflow.Name =="test1");
+
       Assert.IsNotNull(get);
       Assert.IsTrue(get);
     }
@@ -132,9 +147,11 @@ namespace TplWorkflow.Test.Stores
       var wf1 = new Core.WorkflowInstance("test1", 1, "test", null, null);
       var wf2 = new Core.WorkflowInstance("test2", 1, "test", null, null);
       var store = new WorkflowMemoryStore();
+
       store.Add((wf1, sp));
       store.Add((wf2, sp));
       var get = store.Any(e => e.workflow.Name == "test3");
+
       Assert.IsNotNull(get);
       Assert.IsFalse(get);
     }
@@ -145,9 +162,11 @@ namespace TplWorkflow.Test.Stores
       var wf1 = new Core.WorkflowInstance("test1", 1, "test", null, null);
       var wf2 = new Core.WorkflowInstance("test2", 1, "test", null, null);
       var store = new WorkflowMemoryStore();
+
       store.Add((wf1, sp));
       store.Add((wf2, sp));
       var get = store.Contains("test3", 1);
+
       Assert.IsNotNull(get);
       Assert.IsFalse(get);
     }
@@ -158,9 +177,11 @@ namespace TplWorkflow.Test.Stores
       var wf1 = new Core.WorkflowInstance("test1", 1, "test", null, null);
       var wf2 = new Core.WorkflowInstance("test2", 1, "test", null, null);
       var store = new WorkflowMemoryStore();
+
       store.Add((wf1, sp));
       store.Add((wf2, sp));
       var get = store.Contains("test2", 1);
+
       Assert.IsNotNull(get);
       Assert.IsTrue(get);
     }
@@ -171,9 +192,11 @@ namespace TplWorkflow.Test.Stores
       var wf1 = new Core.WorkflowInstance("test1", 1, "test", null, null);
       var wf2 = new Core.WorkflowInstance("test2", 1, "test", null, null);
       var store = new WorkflowMemoryStore();
+
       store.Add((wf1, sp));
       store.Add((wf2, sp));
       var get = store.Contains("test2");
+
       Assert.IsNotNull(get);
       Assert.IsTrue(get);
     }
@@ -184,9 +207,11 @@ namespace TplWorkflow.Test.Stores
       var wf1 = new Core.WorkflowInstance("test1", 1, "test", null, null);
       var wf2 = new Core.WorkflowInstance("test2", 1, "test", null, null);
       var store = new WorkflowMemoryStore();
+
       store.Add((wf1, sp));
       store.Add((wf2, sp));
       var get = store.Clear();
+
       Assert.IsNotNull(get);
       Assert.IsTrue(get);
     }
@@ -197,9 +222,11 @@ namespace TplWorkflow.Test.Stores
       var wf1 = new Core.WorkflowInstance("test1", 1, "test", null, null);
       var wf2 = new Core.WorkflowInstance("test2", 1, "test", null, null);
       var store = new WorkflowMemoryStore();
+
       store.Add((wf1, sp));
       store.Add((wf2, sp));
       var get = store.Remove("test2", 1);
+
       Assert.IsNotNull(get);
       Assert.IsTrue(get);
     }
@@ -210,9 +237,11 @@ namespace TplWorkflow.Test.Stores
       var wf1 = new Core.WorkflowInstance("test1", 1, "test", null, null);
       var wf2 = new Core.WorkflowInstance("test2", 1, "test", null, null);
       var store = new WorkflowMemoryStore();
+
       store.Add((wf1, sp));
       store.Add((wf2, sp));
       var get = store.Remove("test3", 1);
+
       Assert.IsNotNull(get);
       Assert.IsFalse(get);
     }
