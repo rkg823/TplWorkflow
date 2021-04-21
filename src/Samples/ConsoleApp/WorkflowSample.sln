@@ -19,8 +19,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CommonModels", "Common\Comm
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TemplateProvider", "Common\TemplateProvider\TemplateProvider.csproj", "{26F0E0F2-58EF-4D0B-A62B-DD5D71AEF096}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TplWorkflow", "..\..\TplWorkflow\TplWorkflow.csproj", "{BBDB77DA-AADF-4163-9A1A-949EF2EB42EB}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NotificationSample", "Notification\NotificationSample\NotificationSample.csproj", "{BF417693-FB36-49B2-AD12-0F1CDCC4FB06}"
 EndProject
 Global
@@ -49,10 +47,6 @@ Global
 		{26F0E0F2-58EF-4D0B-A62B-DD5D71AEF096}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{26F0E0F2-58EF-4D0B-A62B-DD5D71AEF096}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{26F0E0F2-58EF-4D0B-A62B-DD5D71AEF096}.Release|Any CPU.Build.0 = Release|Any CPU
-		{BBDB77DA-AADF-4163-9A1A-949EF2EB42EB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BBDB77DA-AADF-4163-9A1A-949EF2EB42EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BBDB77DA-AADF-4163-9A1A-949EF2EB42EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BBDB77DA-AADF-4163-9A1A-949EF2EB42EB}.Release|Any CPU.Build.0 = Release|Any CPU
 		{BF417693-FB36-49B2-AD12-0F1CDCC4FB06}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{BF417693-FB36-49B2-AD12-0F1CDCC4FB06}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BF417693-FB36-49B2-AD12-0F1CDCC4FB06}.Release|Any CPU.ActiveCfg = Release|Any CPU
