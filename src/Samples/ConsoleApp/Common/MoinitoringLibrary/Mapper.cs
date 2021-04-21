@@ -5,13 +5,14 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using MonitoringLibrary.Contracts;
 using CommonModels;
+using Microsoft.Extensions.Logging;
 
 namespace MonitoringLibrary
 {
   public class Mapper : IMapper
   {
-    private readonly ILogger logger;
-    public Mapper(ILogger logger)
+    private readonly ILogger<Mapper> logger;
+    public Mapper(ILogger<Mapper> logger)
     {
       this.logger = logger;
     }
@@ -25,13 +26,13 @@ namespace MonitoringLibrary
         ActivityCategory = jsonObject.category,
         OriginalIdent = jsonObject.originalIdent
       };
-     logger.Info($"EventToActivity - Thread: {Thread.CurrentThread.ManagedThreadId}");
+     logger.LogInformation($"EventToActivity - Thread: {Thread.CurrentThread.ManagedThreadId}");
       return Task.FromResult(activity);
     }
 
     public Task<Alert> ActionToAlert(CommonModels.Action action)
     {
-     logger.Info($"ActionToAlert - Thread: {Thread.CurrentThread.ManagedThreadId}");
+     logger.LogInformation($"ActionToAlert - Thread: {Thread.CurrentThread.ManagedThreadId}");
       var alert = new Alert { 
         AlertId = Guid.NewGuid().ToString(), 
         AlertCategory = action.Activity.ActivityCategory,
@@ -42,7 +43,7 @@ namespace MonitoringLibrary
 
     public async Task<IList<Alert>> ActionToAlert(IList<CommonModels.Action> actions)
     {
-      logger.Info($"ActionToAlert - Thread: {Thread.CurrentThread.ManagedThreadId}");
+      logger.LogInformation($"ActionToAlert - Thread: {Thread.CurrentThread.ManagedThreadId}");
       IList<Alert> alerts = new List<Alert>();
       foreach(var action in actions)
       {

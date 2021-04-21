@@ -6,6 +6,10 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using TemplateProvider;
+using TplWorkflow.Services;
+using NotificationLibrary.Contracts;
+using NotificationLibrary;
+using Microsoft.Extensions.Logging;
 
 namespace NotificationSample
 {
@@ -16,11 +20,23 @@ namespace NotificationSample
     {
       try
       {
-        ConfigureDependency();
-        var wfLoader = ServiceProvider.GetService<IWorklowLoader>();
+        var serviceCollection = new ServiceCollection();
+
+        serviceCollection.AddWorkflow();
+        serviceCollection.AddSingleton<IConditionPlugin, ConditionPlugin>();
+        serviceCollection.AddSingleton<IMessageCreator, MessageCreator>();
+        serviceCollection.AddSingleton<IMessagePublisher, MessagePublisher>();
+        serviceCollection.AddSingleton<ITemplateProvider, TemplateProvider.TemplateProvider>();
+        serviceCollection.AddLogging(configure => configure.AddConsole());
+
+        ServiceProvider = serviceCollection.BuildServiceProvider();
+
+        var wfLoader = ServiceProvider.GetService<IWorkflowLoader>();
         var provider = ServiceProvider.GetService<ITemplateProvider>();
+
         var template = await provider.LoadNotificationTempalte();
-        wfLoader.FromJson(template.Workflow, template.Pipelines, template.Conditions, template.Dependency);
+
+        wfLoader.FromJson(template.Workflow, template.Pipelines, template.Conditions);
 
         await RunNotificaitonWorkflow();
       }
@@ -46,7 +62,7 @@ namespace NotificationSample
           AlertSource = "RMS",
           AlertCategory = "Test"
         },
-        new Alert {
+           new Alert {
           AlertId = Guid.NewGuid().ToString(),
           AlertSource = "RMS",
           AlertCategory = "Car Speeding"
@@ -109,18 +125,5 @@ namespace NotificationSample
         },
       };
     }
-
-    private static void ConfigureDependency()
-    {
-      var serviceCollection = new ServiceCollection();
-      ConfigureServices(serviceCollection);
-      ServiceProvider = serviceCollection.BuildServiceProvider();
-    }
-    private static void ConfigureServices(IServiceCollection serviceCollection)
-    {
-      serviceCollection.AddWorkflow();
-      serviceCollection.AddSingleton<ITemplateProvider, TemplateProvider.TemplateProvider>();
-    }
-
   }
 }

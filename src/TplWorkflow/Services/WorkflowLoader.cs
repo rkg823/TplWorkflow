@@ -6,18 +6,20 @@ namespace TplWorkflow.Services
   using TplWorkflow.Extensions.Validations;
   using TplWorkflow.Models;
   using TplWorkflow.Models.Templates;
-  using TplWorkflow.Services.Interfaces;
   using TplWorkflow.Stores.Interfaces;
   using Microsoft.Extensions.DependencyInjection;
   using System;
 
-  public partial class WorkflowLoader: IWorklowLoader
+  public partial class WorkflowLoader: IWorkflowLoader
   {
     private readonly IWorkflowStore workflowStore;
 
-    public WorkflowLoader(IWorkflowStore workflowStore)
+    private readonly IServiceProvider serviceProvider;
+
+    public WorkflowLoader(IWorkflowStore workflowStore, IServiceProvider serviceProvider)
     {
       this.workflowStore = workflowStore;
+      this.serviceProvider = serviceProvider;
     }
 
     public WorkflowDefinition From(Func<WorkflowTemplate> factory, Action<ServiceCollection> configureServices)
@@ -47,13 +49,20 @@ namespace TplWorkflow.Services
     {
       template.Name.Required("Template should habe a name.");
       template.Version.Required(1, int.MaxValue, "Template should have a version.");
-      services = services ?? new ServiceCollection();
       context = context ?? new TemplateContext();
 
-      var sp = services
-        .ConfigureDependency(template.Dependencies)
-        .ConfigureStore(workflowStore)
-        .BuildServiceProvider(); 
+      IServiceProvider sp;
+      if (services == null)
+      {
+        sp = serviceProvider;
+      }
+      else
+      {
+        sp = services
+         .ConfigureDependency(template.Dependencies)
+         .ConfigureStore(workflowStore)
+         .BuildServiceProvider();     
+      }
 
       var wf = template.Map(context);
       workflowStore.Update((wf, sp));

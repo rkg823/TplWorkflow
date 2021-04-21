@@ -30,6 +30,7 @@ namespace TplWorkflow.Extensions.Mappers
 
       return steps;
     }
+
     public static Step Map(this StepTemplate template, TemplateContext context)
     {
       template.Kind.Required("Step should have kind.");

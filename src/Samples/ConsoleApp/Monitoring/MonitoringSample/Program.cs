@@ -5,6 +5,12 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using TemplateProvider;
+using MonitoringLibrary.Contracts;
+using MonitoringLibrary;
+using NotificationLibrary.Contracts;
+using NotificationLibrary;
+using TplWorkflow.Services;
+using Microsoft.Extensions.Logging;
 
 namespace MonitoringSample
 {
@@ -15,13 +21,35 @@ namespace MonitoringSample
     {
       try
       {
-        ConfigureDependency();
-        var wfLoader = ServiceProvider.GetService<IWorklowLoader>();
+        var serviceCollection = new ServiceCollection();
+
+        serviceCollection.AddWorkflow();
+        serviceCollection.AddSingleton<ITemplateProvider, TemplateProvider.TemplateProvider>();
+
+        ServiceProvider = serviceCollection.BuildServiceProvider();
+
+        var wfLoader = ServiceProvider.GetService<IWorkflowLoader>();
         var provider = ServiceProvider.GetService<ITemplateProvider>();
+
         var notification = await provider.LoadNotificationTempalte();
-        wfLoader.FromJson(notification.Workflow, notification.Pipelines, notification.Conditions, notification.Dependency);
+
+        wfLoader.FromJson(notification.Workflow, notification.Pipelines, notification.Conditions,(ServiceCollection sc)=> {
+          sc.AddSingleton<IConditionPlugin, ConditionPlugin>();
+          sc.AddSingleton<IMessageCreator, MessageCreator>();
+          sc.AddSingleton<IMessagePublisher, MessagePublisher>();
+          sc.AddLogging(configure => configure.AddConsole());
+        });
+
         var monitoring = await provider.LoadMonitoringTempalte();
-        wfLoader.FromJson(monitoring.Workflow, monitoring.Pipelines, monitoring.Conditions, monitoring.Dependency);
+
+        wfLoader.FromJson(monitoring.Workflow, monitoring.Pipelines, monitoring.Conditions, (ServiceCollection sc) => {
+          sc.AddSingleton<IMonitoring, Monitoring>();
+          sc.AddSingleton<ICommunication, Communication>();
+          sc.AddSingleton<IMapper, Mapper>();
+          sc.AddSingleton<IRuleStore, RuleStore>();
+          sc.AddLogging(configure => configure.AddConsole());
+        });
+
         await RunMonitoringWorkflow();
       }
       catch (Exception ex)
@@ -46,18 +74,5 @@ namespace MonitoringSample
         "{\"source\":\"RMS\",\"category\":\"Gun Fire\", \"originalIdent\":\"2312\"}"
       };
     }
-
-    private static void ConfigureDependency()
-    {
-      var serviceCollection = new ServiceCollection();
-      ConfigureServices(serviceCollection);
-      ServiceProvider = serviceCollection.BuildServiceProvider();
-    }
-    private static void ConfigureServices(IServiceCollection serviceCollection)
-    {
-      serviceCollection.AddWorkflow();
-      serviceCollection.AddSingleton<ITemplateProvider, TemplateProvider.TemplateProvider>();
-    }
-
   }
 }

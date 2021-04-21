@@ -12,37 +12,21 @@ namespace TemplateProvider
 {
   public class TemplateProvider: ITemplateProvider
   {
-    private static readonly string NotificationTemplatePath = "Templates\\Notification";
-    private static readonly string MonitoringTemplatePath = "Templates\\Monitoring";
-    private static readonly string ConditionDirectory = "Conditions";
-    private static readonly string PipelineDirectory = "Pipelines";
-    private static readonly string WorkflowFile = "Workflow.json";
+    const string NotificationTemplatePath = "Templates\\Notification";
+    const string MonitoringTemplatePath = "Templates\\Monitoring";
+    const string ConditionDirectory = "Conditions";
+    const string PipelineDirectory = "Pipelines";
+    const string WorkflowFile = "Workflow.json";
 
 
     public async Task<Template> LoadMonitoringTempalte()
     {
-      var template = await LoadTemplate(MonitoringTemplatePath);
-      template.Dependency = (sp) =>
-      {
-        sp.AddSingleton<IMonitoring, Monitoring>();
-        sp.AddSingleton<ICommunication, Communication>();
-        sp.AddSingleton<IMapper, Mapper>();
-        sp.AddSingleton<IRuleStore, RuleStore>();
-        sp.AddSingleton<ILogger, Logger>();
-      };
-      return template;
+      return await LoadTemplate(MonitoringTemplatePath);
     }
 
     public async Task<Template> LoadNotificationTempalte()
     {
-      var template = await LoadTemplate(NotificationTemplatePath);
-      template.Dependency = (sp) =>
-      {
-        sp.AddSingleton<IConditionPlugin, ConditionPlugin>();
-        sp.AddSingleton<IMessageCreator, MessageCreator>();
-        sp.AddSingleton<IMessagePublisher, MessagePublisher>();
-      };
-      return template;
+      return await LoadTemplate(NotificationTemplatePath);
     }
     public async Task<Template> LoadTemplate(string path)
     {

@@ -1,4 +1,5 @@
 ﻿using CommonModels;
+using Microsoft.Extensions.Logging;
 using MonitoringLibrary.Contracts;
 using System;
 using System.Collections.Generic;
@@ -9,14 +10,14 @@ namespace MonitoringLibrary
 {
   public class Monitoring : IMonitoring
   {
-    private readonly ILogger logger;
-    public Monitoring(ILogger logger)
+    private readonly ILogger<Monitoring> logger;
+    public Monitoring(ILogger<Monitoring> logger)
     {
       this.logger = logger;
     }
     public Task<IList<CommonModels.Action>> Evaluate(Activity activity, IList<Rule> rules)
     {
-      logger.Info($"Evaluate - Thread: {Thread.CurrentThread.ManagedThreadId}");
+      logger.LogInformation($"Evaluate - Thread: {Thread.CurrentThread.ManagedThreadId}");
       IList<CommonModels.Action> actions = new List<CommonModels.Action> {
           //new CommonModels.Action { Id = Guid.NewGuid().ToString().ToString(), Data = "this is an action1", Activity = activity },
           //new CommonModels.Action { Id = Guid.NewGuid().ToString(), Data = "this is an action2", Activity = activity },

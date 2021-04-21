@@ -17,9 +17,10 @@ namespace TplWorkflow.Extensions
     public static IServiceCollection AddWorkflow(this IServiceCollection services)
     {
       services.AddSingleton<IWorkflowHost, WorkflowHost>();
-      services.AddSingleton<IWorklowLoader, WorkflowLoader>();
+      services.AddSingleton<IWorkflowLoader, WorkflowLoader>();
       services.AddSingleton<IWorkflowStore, WorkflowMemoryStore>();
-
+      services.AddTransient<IVariableStore, VariableMemoryStore>();
+      services.AddSingleton<IWorkflowStore, WorkflowMemoryStore>();
       return services;
     }
 
