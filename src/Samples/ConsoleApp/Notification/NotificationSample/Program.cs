@@ -5,8 +5,6 @@ using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using TemplateProvider;
-using TplWorkflow.Services;
 using NotificationLibrary.Contracts;
 using NotificationLibrary;
 using Microsoft.Extensions.Logging;
@@ -16,7 +14,8 @@ namespace NotificationSample
   class Program
   {
     private static ServiceProvider ServiceProvider;
-    static async Task Main(string[] args)
+
+    static async Task Main(string[] _)
     {
       try
       {
@@ -26,17 +25,17 @@ namespace NotificationSample
         serviceCollection.AddSingleton<IConditionPlugin, ConditionPlugin>();
         serviceCollection.AddSingleton<IMessageCreator, MessageCreator>();
         serviceCollection.AddSingleton<IMessagePublisher, MessagePublisher>();
-        serviceCollection.AddSingleton<ITemplateProvider, TemplateProvider.TemplateProvider>();
+        serviceCollection.AddSingleton<TemplateProvider>();
         serviceCollection.AddLogging(configure => configure.AddConsole());
 
         ServiceProvider = serviceCollection.BuildServiceProvider();
 
         var wfLoader = ServiceProvider.GetService<IWorkflowLoader>();
-        var provider = ServiceProvider.GetService<ITemplateProvider>();
+        var provider = ServiceProvider.GetService<TemplateProvider>();
 
-        var template = await provider.LoadNotificationTempalte();
+        var (template, context) = await provider.LoadWfTemplate();
 
-        wfLoader.FromJson(template.Workflow, template.Pipelines, template.Conditions);
+        wfLoader.Register(template, context);
 
         await RunNotificaitonWorkflow();
       }
@@ -51,10 +50,11 @@ namespace NotificationSample
       var name = "ChannelNotification";
       var version = 1;
       var wf = ServiceProvider.GetService<IWorkflowHost>();
-      var alerts = CreateAlerts();
-      var result = await wf.StartAsync(name, version, alerts);
+      var alerts = CreateEvents();
+      _ = await wf.StartAsync(name, version, alerts);
     }
-    private static IList<Alert> CreateAlerts()
+
+    private static IList<Alert> CreateEvents()
     {
       return new List<Alert> {
           new Alert {

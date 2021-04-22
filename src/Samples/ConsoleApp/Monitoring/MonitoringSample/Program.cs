@@ -4,12 +4,10 @@ using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using TemplateProvider;
 using MonitoringLibrary.Contracts;
 using MonitoringLibrary;
 using NotificationLibrary.Contracts;
 using NotificationLibrary;
-using TplWorkflow.Services;
 using Microsoft.Extensions.Logging;
 
 namespace MonitoringSample
@@ -17,19 +15,20 @@ namespace MonitoringSample
   static class Program
   {
     private static ServiceProvider ServiceProvider;
-    static async Task Main(string[] args)
+
+    static async Task Main(string[] _)
     {
       try
       {
         var serviceCollection = new ServiceCollection();
 
         serviceCollection.AddWorkflow();
-        serviceCollection.AddSingleton<ITemplateProvider, TemplateProvider.TemplateProvider>();
+        serviceCollection.AddSingleton<TemplateProvider>();
 
         ServiceProvider = serviceCollection.BuildServiceProvider();
 
         var wfLoader = ServiceProvider.GetService<IWorkflowLoader>();
-        var provider = ServiceProvider.GetService<ITemplateProvider>();
+        var provider = ServiceProvider.GetService<TemplateProvider>();
 
         var notification = await provider.LoadNotificationTempalte();
 
@@ -64,7 +63,7 @@ namespace MonitoringSample
       var version = 1;
       var wf = ServiceProvider.GetService<IWorkflowHost>();
       var events = CreateEvents();
-      var result = await wf.StartAsync(name, version, events);
+      _ = await wf.StartAsync(name, version, events);
     }
     
     public static IList<string> CreateEvents()

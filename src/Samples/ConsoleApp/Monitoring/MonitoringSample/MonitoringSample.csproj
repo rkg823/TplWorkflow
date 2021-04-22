@@ -8,11 +8,13 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="3.1.14" />
     <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="3.1.14" />
-    <PackageReference Include="TplWorkflow" Version="2.0.0" />
+    <PackageReference Include="TplWorkflow" Version="2.0.1" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Common\TemplateProvider\TemplateProvider.csproj" />
+    <ProjectReference Include="..\..\Common\CommonModels\CommonModels.csproj" />
+    <ProjectReference Include="..\..\Common\MoinitoringLibrary\MonitoringLibrary.csproj" />
+    <ProjectReference Include="..\..\Common\NotificationLibrary\NotificationLibrary.csproj" />
   </ItemGroup>
 
   <ItemGroup>

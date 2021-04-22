@@ -8,9 +8,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 
-namespace TemplateProvider
+namespace MonitoringSample
 {
-  public class TemplateProvider: ITemplateProvider
+  public class TemplateProvider
   {
     const string NotificationTemplatePath = "Templates\\Notification";
     const string MonitoringTemplatePath = "Templates\\Monitoring";
