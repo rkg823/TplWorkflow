@@ -12,12 +12,12 @@ namespace TplWorkflow.Services
 
   public partial class WorkflowLoader
   {
-
     #region From Single Json 
     public WorkflowDefinition FromJson(string workflow)
     {
       return FromJson(workflow, default(ServiceCollection));
     }
+
     public WorkflowDefinition FromJson(string workflow, ServiceCollection services)
     {
       var template = JsonConvert.DeserializeObject<WorkflowTemplate>(workflow);
@@ -25,6 +25,7 @@ namespace TplWorkflow.Services
 
       return Register(template, context, services);
     }
+
     public WorkflowDefinition FromJson(string workflow, Action<ServiceCollection> configureServices)
     {
       var sc = new ServiceCollection();
@@ -32,10 +33,13 @@ namespace TplWorkflow.Services
 
       return FromJson(workflow, sc);
     }
+
     public WorkflowDefinition FromJson(string workflow, IList<string> pipelines)
     {
       var _wftemplate = JsonConvert.DeserializeObject<WorkflowTemplate>(workflow);
-      pipelines = pipelines ?? new List<string>();
+
+      pipelines ??= new List<string>();
+
       _wftemplate.Pipelines = pipelines.Select(e =>
       {
         var pipe = JsonConvert.DeserializeObject<PipelineTemplate>(e);
@@ -48,12 +52,16 @@ namespace TplWorkflow.Services
 
       return Register(_wftemplate);
     }
+
     public WorkflowDefinition FromJson(string workflow, IList<string> pipelines, Action<ServiceCollection> configureServices)
     {
       configureServices.Required("Configure Services can not be null.");
 
       var _wftemplate = JsonConvert.DeserializeObject<WorkflowTemplate>(workflow);
-      pipelines = pipelines ?? new List<string>();
+
+
+      pipelines ??= new List<string>();
+
       _wftemplate.Pipelines = pipelines.Select(e => JsonConvert.DeserializeObject<PipelineTemplate>(e)).ToList();
 
       var sc = new ServiceCollection();
@@ -66,8 +74,8 @@ namespace TplWorkflow.Services
 
     public WorkflowDefinition FromJson(string workflow, IList<string> pipelines, IList<string> conditions)
     {
-      pipelines = pipelines ?? new List<string>();
-      conditions = conditions ?? new List<string>();
+      pipelines ??= new List<string>();
+      conditions ??= new List<string>();
 
       var _wftemplate = JsonConvert.DeserializeObject<WorkflowTemplate>(workflow);
       var _pipelines = pipelines.Select(e => JsonConvert.DeserializeObject<PipelineTemplate>(e)).ToList();
@@ -82,8 +90,8 @@ namespace TplWorkflow.Services
     {
       configureServices.Required("Configure Services can not be null.");
 
-      pipelines = pipelines ?? new List<string>();
-      conditions = conditions ?? new List<string>();
+      pipelines ??= new List<string>();
+      conditions ??= new List<string>();
 
       var _wftemplate = JsonConvert.DeserializeObject<WorkflowTemplate>(workflow);
       var _pipelines = pipelines.Select(e => JsonConvert.DeserializeObject<PipelineTemplate>(e)).ToList();
