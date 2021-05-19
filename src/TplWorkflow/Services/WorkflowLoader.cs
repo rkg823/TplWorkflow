@@ -15,12 +15,9 @@ namespace TplWorkflow.Services
   {
     private readonly IWorkflowStore workflowStore;
 
-    private readonly IServiceProvider serviceProvider;
-
-    public WorkflowLoader(IWorkflowStore workflowStore, IServiceProvider serviceProvider)
+    public WorkflowLoader(IWorkflowStore workflowStore)
     {
       this.workflowStore = workflowStore;
-      this.serviceProvider = serviceProvider;
     } 
 
     public WorkflowDefinition Register(WorkflowTemplate template, TemplateContext context, IServiceCollection services)
@@ -29,18 +26,11 @@ namespace TplWorkflow.Services
       template.Version.Required(1, int.MaxValue, "Template should have a version.");
       context ??= new TemplateContext();
 
-      IServiceProvider sp;
-      if (services == null)
-      {
-        sp = serviceProvider;
-      }
-      else
-      {
-        sp = services
+      services = services ?? new ServiceCollection();
+      var sp = services
          .ConfigureDependency(template.Dependencies)
-         .ConfigureStore(workflowStore)
+         .ConfigureVariableStore()
          .BuildServiceProvider();
-      }
 
       var wf = template.Map(context);
       workflowStore.Update((wf, sp));

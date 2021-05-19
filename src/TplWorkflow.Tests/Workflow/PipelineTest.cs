@@ -4,7 +4,6 @@ namespace TplWorkflow.Test
   using TplWorkflow.Core.Conditions;
   using TplWorkflow.Core.Pipelines;
   using TplWorkflow.Core.Steps;
-  using Microsoft.Extensions.DependencyInjection;
   using Microsoft.VisualStudio.TestTools.UnitTesting;
   using Moq;
   using System.Collections.Generic;
@@ -12,15 +11,27 @@ namespace TplWorkflow.Test
   using TplWorkflow.Core;
   using TplWorkflow.Core.Maps;
   using TplWorkflow.Core.Common;
+  using System;
+  using Microsoft.Extensions.DependencyInjection;
+  using TplWorkflow.Stores.Interfaces;
+  using TplWorkflow.Stores;
 
   [TestClass]
   public class PipelineTest
   {
-    private ServiceProvider provider = null;
+    private Mock<IServiceProvider> mockGlobalSp;
+
+    private IServiceProvider localSp;
+
     [TestInitialize]
     public void Init()
     {
-      provider = new ServiceCollection().BuildServiceProvider();
+      mockGlobalSp = new Mock<IServiceProvider>();
+
+      var sc = new ServiceCollection();
+      sc.AddTransient<IVariableStore, VariableMemoryStore>();
+
+      localSp = sc.BuildServiceProvider();
     }
 
     [TestMethod]
@@ -30,7 +41,7 @@ namespace TplWorkflow.Test
       object r1 = "r1";
       string r2 = "r2";
 
-      var context = new ExecutionContext(i1, provider);
+      var context = new ExecutionContext(i1, mockGlobalSp.Object, localSp);
 
       var step1 = new Mock<Step>(MockBehavior.Strict, new object[] { "id", null });
       var taskResult1 = new AsyncResult<object>(Task.FromResult(r1));
@@ -65,7 +76,7 @@ namespace TplWorkflow.Test
       object r1 = "r1";
       string r2 = "r2";
 
-      var context = new ExecutionContext(i1, provider);
+      var context = new ExecutionContext(i1, mockGlobalSp.Object, localSp);
 
       var step1 = new Mock<Step>(MockBehavior.Strict, new object[] { "id", null });
       var taskResult1 = new AsyncResult<object>(Task.FromResult(r1));
@@ -102,7 +113,7 @@ namespace TplWorkflow.Test
       var i1 = "i1";
       object r1 = "r1";
       string r2 = "r2";
-      var context = new ExecutionContext(i1, provider);
+      var context = new ExecutionContext(i1, mockGlobalSp.Object, localSp);
 
       var step1 = new Mock<Step>(MockBehavior.Strict, new object[] { "id", null });
       var taskResult1 = new AsyncResult<object>(Task.FromResult(r1));
@@ -138,7 +149,7 @@ namespace TplWorkflow.Test
       object r1 = "r1";
       string r2 = "r2";
 
-      var context = new ExecutionContext(i1, provider);
+      var context = new ExecutionContext(i1, mockGlobalSp.Object, localSp);
 
       var step1 = new Mock<Step>(MockBehavior.Strict, new object[] { "id", null });
       var taskResult1 = new AsyncResult<object>(Task.FromResult(r1));
@@ -171,7 +182,7 @@ namespace TplWorkflow.Test
       object r1 = "r1";
       string r2 = "r2";
 
-      var context = new ExecutionContext(i1, provider);
+      var context = new ExecutionContext(i1, mockGlobalSp.Object, localSp);
 
       var step1 = new Mock<Step>(MockBehavior.Strict, new object[] { "id", null });
       var taskResult1 = new AsyncResult<object>(Task.FromResult(r1));
@@ -207,7 +218,7 @@ namespace TplWorkflow.Test
       object r1 = "r1";
       string r2 = "r2";
 
-      var context = new ExecutionContext(i1, provider);
+      var context = new ExecutionContext(i1, mockGlobalSp.Object, localSp);
 
       var step1 = new Mock<Step>(MockBehavior.Strict, new object[] { "id", null });
       var taskResult1 = new AsyncResult<object>(Task.FromResult(r1));

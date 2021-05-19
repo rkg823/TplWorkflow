@@ -22,6 +22,7 @@ namespace TplWorkflow.Models.Templates
     public IList<OutputTemplate> Outputs { get; set; }
     public PipelineTemplate Pipeline { get; set; }
     public bool Disable { get; set; }
+    public string Scope { get; set; }
 
     public StepTemplate()
     {

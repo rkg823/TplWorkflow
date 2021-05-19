@@ -15,14 +15,17 @@ namespace TplWorkflow.Test
   [TestClass]
   public class InputTest
   {
-    private ServiceProvider provider = null;
+    private Mock<IServiceProvider> mockGlobalSp;
+
+    private IServiceProvider localSp;
+
     [TestInitialize]
     public void Init()
     {
-      var sc = new ServiceCollection();
-      sc.AddTransient<IVariableStore, VariableMemoryStore>();
-
-      provider = sc.BuildServiceProvider();
+      mockGlobalSp = new Mock<IServiceProvider>();
+      localSp = new ServiceCollection()
+        .AddSingleton<IVariableStore, VariableMemoryStore>()
+        .BuildServiceProvider();
     }
 
     [TestMethod]
@@ -30,7 +33,7 @@ namespace TplWorkflow.Test
     {
       var i1 = "data1";
       var i2 = "data2";
-      var context = new ExecutionContext(provider);
+      var context = new ExecutionContext(mockGlobalSp.Object, localSp);
 
       var mockInput1 = new Mock<Input>(MockBehavior.Strict, new object[] { typeof(string) });
       mockInput1.Setup(e => e.Resolve(It.IsNotNull<ExecutionContext>())).Returns(i1);
@@ -54,7 +57,7 @@ namespace TplWorkflow.Test
     public void InlineInputTest()
     {
       var i1 = "data1";
-      var context = new ExecutionContext(provider);
+      var context = new ExecutionContext(mockGlobalSp.Object, localSp);
 
       var inlineInput = new InlineInput(typeof(string), i1);
       var result =inlineInput.Resolve(context);
@@ -68,7 +71,7 @@ namespace TplWorkflow.Test
     public void StepInputTest()
     {
       var i1 = "data1";
-      var context = new ExecutionContext(i1,provider);
+      var context = new ExecutionContext(i1, mockGlobalSp.Object, localSp);
 
       var inlineInput = new StepInput(typeof(string));
       var result = inlineInput.Resolve(context);
@@ -86,7 +89,7 @@ namespace TplWorkflow.Test
         new Variable("test", i1)
       };
       
-      var context = new ExecutionContext(null,provider, variables);
+      var context = new ExecutionContext(null, mockGlobalSp.Object, localSp, variables);
       Func<ExecutionContext, IVariableStore> resolver = (context) => context.GlobalVariables;
 
       var input = new VariableInput("test", typeof(string), resolver);
@@ -105,7 +108,7 @@ namespace TplWorkflow.Test
       var mockStore = new Mock<IVariableStore>();
       mockStore.Setup(e => e.Get(It.IsAny<string>())).Returns(i1);
 
-      var context = new ExecutionContext(null, provider, null, mockStore.Object);
+      var context = new ExecutionContext(null, mockGlobalSp.Object, localSp, null, mockStore.Object);
       Func<ExecutionContext, IVariableStore> resolver = (context) => context.PipelineVariables;
 
       var input = new VariableInput("test", typeof(string), resolver);

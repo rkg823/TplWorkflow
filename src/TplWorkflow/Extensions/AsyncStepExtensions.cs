@@ -19,7 +19,7 @@ namespace TplWorkflow.Extensions
 
           if (_beg.step.Outputs != null)
           {
-            var _context = new ExecutionContext(_task.Result, _beg.context.ServiceProvider, _beg.context.GlobalVariables, _beg.context.PipelineVariables);
+            var _context = new ExecutionContext(_task.Result, _beg.context.GlobalServiceProvider, _beg.context.LocalServiceProvider, _beg.context.GlobalVariables, _beg.context.PipelineVariables);
            
             foreach (var o in _beg.step.Outputs)
             {

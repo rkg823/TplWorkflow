@@ -54,7 +54,7 @@ namespace TplWorkflow.Extensions
       var vars = variables.ToList();
       if (maps == null)
       {
-        return new ExecutionContext(state, context.ServiceProvider, context.GlobalVariables, vars);
+        return new ExecutionContext(state, context.GlobalServiceProvider, context.LocalServiceProvider, context.GlobalVariables, vars);
       }     
       
       foreach (var map in maps)
@@ -62,7 +62,7 @@ namespace TplWorkflow.Extensions
         vars.Add(map.Resolve(context));
       }
 
-      return new ExecutionContext(state, context.ServiceProvider, context.GlobalVariables, vars);
+      return new ExecutionContext(state, context.GlobalServiceProvider, context.LocalServiceProvider, context.GlobalVariables, vars);
     }
 
     public static ExecutionContext ResolveMaps(this ExecutionContext context, IList<Map> maps, IList<Variable> variables)
