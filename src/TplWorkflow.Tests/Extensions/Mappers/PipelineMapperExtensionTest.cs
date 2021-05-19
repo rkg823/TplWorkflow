@@ -9,20 +9,10 @@ namespace TplWorkflow.Test
   using Microsoft.VisualStudio.TestTools.UnitTesting;
   using System.Collections.Generic;
   using TplWorkflow.Extensions.Mappers;
-  using System;
-  using Microsoft.Extensions.DependencyInjection;
 
   [TestClass]
   public class PipelineMapperExtensionTest
   {
-    private IServiceProvider sp;
-    [TestInitialize]
-    public void Init()
-    {
-      var sc = new ServiceCollection();
-      sp = sc.BuildServiceProvider();
-    }
-
     [TestMethod]
     [ExpectedException(typeof(WorkflowException))]
     public void PipelineWithNoStepsTest()

@@ -17,12 +17,15 @@ namespace TplWorkflow.Test
   [TestClass]
   public class OutputMapperExtensionTest
   {
-    private IServiceProvider sp;
+    private Mock<IServiceProvider> mockGlobalSp;
+
+    private Mock<IServiceProvider> mockLocalSp;
+
     [TestInitialize]
     public void Init()
     {
-      var sc = new ServiceCollection();
-      sp = sc.BuildServiceProvider();
+      mockGlobalSp = new Mock<IServiceProvider>();
+      mockLocalSp = new Mock<IServiceProvider>();
     }
 
     [TestMethod]
@@ -51,7 +54,7 @@ namespace TplWorkflow.Test
       var gstore = new Mock<IVariableStore>();
 
       pstore.Setup(e => e.Add(It.IsAny<string>(), It.IsAny<object>())).Returns(true);
-      var context = new ExecutionContext("some data", sp, gstore.Object, pstore.Object);
+      var context = new ExecutionContext("some data", mockGlobalSp.Object, mockLocalSp.Object, gstore.Object, pstore.Object);
 
       var resolved = output.ResolveVariables(context);
       var result = output.Resolve(context);

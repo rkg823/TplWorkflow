@@ -51,7 +51,7 @@ namespace TplWorkflow.Core.Pipelines
             continue;
           }
 
-          _context = new ExecutionContext(state, _context.ServiceProvider, _context.GlobalVariables, _context.PipelineVariables);
+          _context = new ExecutionContext(state, _context.GlobalServiceProvider, _context.LocalServiceProvider, _context.GlobalVariables, _context.PipelineVariables);
         }
 
         states.Add(_context.CurrentState);

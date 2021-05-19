@@ -22,7 +22,7 @@ namespace TplWorkflow.Core.Steps
     public override AsyncResult<object> Resolve(ExecutionContext context)
     {
       var tcs = new TaskCompletionSource<object>();
-      var store = context.ServiceProvider.GetService<IWorkflowStore>();
+      var store = context.GlobalServiceProvider.GetRequiredService(typeof(IWorkflowStore)) as IWorkflowStore;
       var (workflow, provider) = store.Get(Name, Version);
 
       if (workflow == null || provider == null)
@@ -30,7 +30,7 @@ namespace TplWorkflow.Core.Steps
         throw new WorkflowrRgistrationException(Name, Version);
       }
 
-      var _context = new ExecutionContext(context.CurrentState, provider, workflow.Variables);
+      var _context = new ExecutionContext(context.CurrentState, context.GlobalServiceProvider, provider, workflow.Variables);
       var task = workflow.Pipeline.Resolve(_context);
 
       task.ContinueWith((t, beg) =>

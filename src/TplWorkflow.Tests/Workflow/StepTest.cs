@@ -24,14 +24,19 @@ namespace TplWorkflow.Test
   [TestClass]
   public class StepTest
   {
-    private ServiceProvider provider = null;
+    private Mock<IServiceProvider> mockGlobalSp;
+
+    private IServiceProvider localSp;
+
     [TestInitialize]
     public void Init()
     {
       var sc = new ServiceCollection();
       sc.AddSingleton<IMockContract, MockService>();
       sc.AddTransient<IVariableStore, VariableMemoryStore>();
-      provider = sc.BuildServiceProvider();
+      localSp = sc.BuildServiceProvider();
+
+      mockGlobalSp = new Mock<IServiceProvider>();
     }
 
     [TestMethod]
@@ -44,7 +49,7 @@ namespace TplWorkflow.Test
       pipeline.Setup(e => e.Resolve(It.IsAny<ExecutionContext>())).Returns(Task.FromResult(exeResult));
 
       var step = new PipelineStep("id", pipeline.Object, null);
-      var context = new ExecutionContext("some value", provider);
+      var context = new ExecutionContext("some value", mockGlobalSp.Object, localSp);
 
       var er = step.Resolve(context);
       var result = await er.Value();
@@ -65,7 +70,7 @@ namespace TplWorkflow.Test
       pipeline.Setup(e => e.Resolve(It.IsAny<ExecutionContext>())).Returns(Task.FromResult(exeResult));
 
       var condition = new Mock<Condition>();
-      var context = new ExecutionContext("some value", provider);
+      var context = new ExecutionContext("some value", mockGlobalSp.Object, localSp);
       condition.Setup(e => e.Resolve(context)).ReturnsAsync(new AsyncResult<bool>(true));
 
       var step = new PipelineStep("id", pipeline.Object, condition.Object);
@@ -88,7 +93,7 @@ namespace TplWorkflow.Test
       pipeline.Setup(e => e.Resolve(It.IsAny<ExecutionContext>())).Returns(Task.FromResult(exeResult));
 
       var condition = new Mock<Condition>();
-      var context = new ExecutionContext("some value", provider);
+      var context = new ExecutionContext("some value", mockGlobalSp.Object, localSp);
       condition.Setup(e => e.Resolve(context)).ReturnsAsync(new AsyncResult<bool>(false));
 
       var step = new PipelineStep("id", pipeline.Object, condition.Object);
@@ -109,7 +114,7 @@ namespace TplWorkflow.Test
 
       var method = new ContractMethod(methodInfo, typeof(IMockContract), null, func);
       var step = new AsyncStep("id", method, null, null);
-      var context = new ExecutionContext("some value", provider);
+      var context = new ExecutionContext("some value", mockGlobalSp.Object, localSp);
 
       var er = step.Resolve(context);
       var result = await er.Value();
@@ -133,7 +138,7 @@ namespace TplWorkflow.Test
       var method = new ContractMethod(methodInfo, typeof(IMockContract), mockInputs, func);
 
       var step = new AsyncStep("id", method, null, null);
-      var context = new ExecutionContext("some value", provider);
+      var context = new ExecutionContext("some value", mockGlobalSp.Object, localSp);
 
       var er = step.Resolve(context);
       var result = await er.Value();
@@ -167,7 +172,7 @@ namespace TplWorkflow.Test
 
       var step = new AsyncStep("id", method, mockOutputs, null);
       var variables = new List<Variable>();
-      var context = new ExecutionContext("some value", provider, variables);
+      var context = new ExecutionContext("some value", mockGlobalSp.Object, localSp, variables);
 
       var er = step.Resolve(context);
       var result = await er.Value();
@@ -187,7 +192,7 @@ namespace TplWorkflow.Test
     [TestMethod]
     public async Task TaskStepWithConditionTrueTest()
     {
-      var context = new ExecutionContext("some value", provider);
+      var context = new ExecutionContext("some value", mockGlobalSp.Object, localSp);
       var condition = new Mock<Condition>();
       condition.Setup(e => e.Resolve(context)).ReturnsAsync(new AsyncResult<bool>(true));
 
@@ -198,6 +203,7 @@ namespace TplWorkflow.Test
       var step = new AsyncStep("id", method, null, condition.Object);
       var er = step.Resolve(context);
       var result = await er.Value();
+
       Assert.IsNotNull(step.Id);
       Assert.IsNotNull(step.Method);
       Assert.IsNotNull(step.Condition);

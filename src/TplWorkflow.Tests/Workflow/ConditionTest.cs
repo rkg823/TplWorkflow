@@ -5,27 +5,37 @@ namespace TplWorkflow.Test
   using TplWorkflow.Core.Common;
   using TplWorkflow.Core.Conditions;
   using TplWorkflow.Core.Inputs;
-  using Microsoft.Extensions.DependencyInjection;
   using Microsoft.VisualStudio.TestTools.UnitTesting;
   using Moq;
   using System;
   using System.Collections.Generic;
   using System.Threading.Tasks;
+  using Microsoft.Extensions.DependencyInjection;
+  using TplWorkflow.Stores.Interfaces;
+  using TplWorkflow.Stores;
 
   [TestClass]
   public class ConditionTest
   {
-    private ServiceProvider provider = null;
+    private Mock<IServiceProvider> mockGlobalSp;
+
+    private IServiceProvider localSp;
+
     [TestInitialize]
     public void Init()
     {
-      provider = new ServiceCollection().BuildServiceProvider();
+      mockGlobalSp = new Mock<IServiceProvider>();
 
+      var sc = new ServiceCollection();
+      sc.AddTransient<IVariableStore, VariableMemoryStore>();
+
+      localSp = sc.BuildServiceProvider();
     }
+
     [TestMethod]
     public async Task ExpressionTrueConditionTest()
     {
-      var context = new ExecutionContext(provider);
+      var context = new ExecutionContext(mockGlobalSp.Object, localSp);
       var mockInput1 = new Mock<Input>(MockBehavior.Strict, new object[] { typeof(string) });
       mockInput1.Setup(e => e.Resolve(It.IsNotNull<ExecutionContext>())).Returns("some data");
       var mockInput2 = new Mock<Input>(MockBehavior.Strict, new object[] { typeof(string) });
@@ -46,7 +56,7 @@ namespace TplWorkflow.Test
     [TestMethod]
     public async Task ExpressionFalseConditionTest()
     {
-      var context = new ExecutionContext(provider);
+      var context = new ExecutionContext(mockGlobalSp.Object, localSp);
       var mockInput1 = new Mock<Input>(MockBehavior.Strict, new object[] { typeof(string) });
       mockInput1.Setup(e => e.Resolve(It.IsNotNull<ExecutionContext>())).Returns("some data1");
       var mockInput2 = new Mock<Input>(MockBehavior.Strict, new object[] { typeof(string) });
@@ -68,7 +78,7 @@ namespace TplWorkflow.Test
     [ExpectedException(typeof(NullReferenceException))]
     public async Task NullInputsExpressionConditionTest()
     {
-      var context = new ExecutionContext(provider);
+      var context = new ExecutionContext(mockGlobalSp.Object, localSp);
       Func<string, string, bool> del = (i1, i2) => i1 == i2;
       
       var variables = new List<Variable>();
@@ -84,7 +94,7 @@ namespace TplWorkflow.Test
     [TestMethod]
     public async Task InlineTrueConditionTest()
     {
-      var context = new ExecutionContext(provider);
+      var context = new ExecutionContext(mockGlobalSp.Object, localSp);
       var condition = new InlineCondition(true);
       var result = await condition.Resolve(context);
       
@@ -95,7 +105,7 @@ namespace TplWorkflow.Test
     [TestMethod]
     public async Task InlineFalseConditionTest()
     {
-      var context = new ExecutionContext(provider);
+      var context = new ExecutionContext(mockGlobalSp.Object, localSp);
       var condtition = new InlineCondition(false);
       var result = await condtition.Resolve(context);
       

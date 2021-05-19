@@ -16,9 +16,12 @@ namespace TplWorkflow
   {
     private readonly IWorkflowStore workflowStore;
 
-    public WorkflowHost(IWorkflowStore workflowStore)
+    private readonly IServiceProvider globalServicrProvider;
+
+    public WorkflowHost(IWorkflowStore workflowStore, IServiceProvider globalServicrProvider)
     {
       this.workflowStore = workflowStore;
+      this.globalServicrProvider = globalServicrProvider;
     }
 
     #region Start
@@ -91,9 +94,9 @@ namespace TplWorkflow
 
       return data;
     }
-    private Task<AsyncResult<object>> InvokeAsync(Core.WorkflowInstance workFlow, IServiceProvider sp, object data = null)
+    private Task<AsyncResult<object>> InvokeAsync(Core.WorkflowInstance workFlow, IServiceProvider localServiceProvider, object data = null)
     {
-      var context = new ExecutionContext(data, sp, workFlow.Variables);
+      var context = new ExecutionContext(data, globalServicrProvider, localServiceProvider, workFlow.Variables);
 
       return workFlow.Pipeline.Resolve(context);
     }

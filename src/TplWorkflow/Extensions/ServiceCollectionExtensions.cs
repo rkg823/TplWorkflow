@@ -19,8 +19,6 @@ namespace TplWorkflow.Extensions
       services.AddSingleton<IWorkflowHost, WorkflowHost>();
       services.AddSingleton<IWorkflowLoader, WorkflowLoader>();
       services.AddSingleton<IWorkflowStore, WorkflowMemoryStore>();
-      services.AddTransient<IVariableStore, VariableMemoryStore>();
-      services.AddSingleton<IWorkflowStore, WorkflowMemoryStore>();
       return services;
     }
 
@@ -52,10 +50,9 @@ namespace TplWorkflow.Extensions
       return serviceCollection;
     }
 
-    public static IServiceCollection ConfigureStore(this IServiceCollection serviceCollection, IWorkflowStore store)
+    public static IServiceCollection ConfigureVariableStore(this IServiceCollection serviceCollection)
     {
       serviceCollection.AddTransient<IVariableStore, VariableMemoryStore>();
-      serviceCollection.AddSingleton(store);
 
       return serviceCollection;
     }

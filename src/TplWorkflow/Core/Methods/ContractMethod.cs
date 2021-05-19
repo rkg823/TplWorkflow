@@ -32,7 +32,7 @@ namespace TplWorkflow.Core.Methods
         }
       }
 
-      var instance = context.ServiceProvider.GetService(Contract);
+      var instance = context.GetRequiredService(Contract);
 
       instance.Required($"Type (name - {Contract}) does not have an implementation registered in the dependency.");
 
