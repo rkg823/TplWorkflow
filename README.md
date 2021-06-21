@@ -510,9 +510,9 @@ Following are a different kind of Scopes -
 
  ## Samples
 
-* [Monitoring Piepline](src/Samples/ConsoleApp/Monitoring/MonitoringSample)
+* [Monitoring Pipeline](src/Samples/ConsoleApp/Monitoring/MonitoringSample)
 
-* [Notification Piepline](src/Samples/ConsoleApp/Notification/NotificationSample)
+* [Notification Pipeline](src/Samples/ConsoleApp/Notification/NotificationSample)
 
 ## Microsoft Open Source Code of Conduct
 https://opensource.microsoft.com/codeofconduct
