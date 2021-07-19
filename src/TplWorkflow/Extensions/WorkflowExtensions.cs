@@ -54,7 +54,7 @@ namespace TplWorkflow.Extensions
       var vars = variables.ToList();
       if (maps == null)
       {
-        return new ExecutionContext(state, context.GlobalServiceProvider, context.LocalServiceProvider, context.GlobalVariables, vars);
+        return context;
       }     
       
       foreach (var map in maps)
