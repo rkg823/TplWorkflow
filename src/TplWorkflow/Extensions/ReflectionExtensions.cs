@@ -14,7 +14,8 @@ namespace TplWorkflow.Extensions
     public static MethodInfo GetGenericMethod(this Type sourceType, string methodName, Type[] genericArgTypes, Type[] nonGenericArgTypes)
     {
       return sourceType.GetMethods()
-        .Single(m => m.Name == methodName && m.GetGenericArguments().Length == genericArgTypes.Length
+        .Single(m => m.Name == methodName 
+                  && m.GetGenericArguments().Length == genericArgTypes.Length
                   && m.GetParameters().Where(p => !p.ParameterType.IsGenericParameter)
         .Select(p => p.ParameterType)
         .SequenceEqual(nonGenericArgTypes))
