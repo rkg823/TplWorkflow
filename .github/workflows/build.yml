@@ -19,6 +19,9 @@ jobs:
     
     - name: Install dependencies
       run: dotnet restore
+      
+    - name: SonarCloud Scan
+      uses: SonarSource/sonarcloud-github-action@v1.6
     
     - name: Build
       run: dotnet build --configuration Release --no-restore
