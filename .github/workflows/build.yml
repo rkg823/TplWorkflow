@@ -51,7 +51,6 @@ jobs:
         args: >
           -Dsonar.organization=rkg823
           -Dsonar.projectKey=rkg823_TplWorkflow
-          -Dsonar.sources=TplWorkflow/
           -Dsonar.test.exclusions=**Test*.cs
           -Dsonar.cs.vstest.reportsPaths=TestResults/*.trx
           -Dsonar.cs.opencover.reportsPaths=TestResults/*/coverage.opencover.xml
