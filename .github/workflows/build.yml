@@ -47,6 +47,8 @@ jobs:
           -Dsonar.sources=TplWorkflow/
           -Dsonar.test.exclusions=TplWorkflow.Tests/**
           -Dsonar.tests=TplWorkflow.Tests/
+          -Dsonar.cs.vstest.reportsPaths=TestResults/*.trx
+          -Dsonar.cs.opencover.reportsPaths=TestResults/*/coverage.opencover.xml
           -Dsonar.verbose=true
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
