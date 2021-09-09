@@ -39,6 +39,15 @@ jobs:
       
     - name: SonarCloud Scan
       uses: sonarsource/sonarcloud-github-action@master
+      with:
+        projectBaseDir: src
+        args: >
+          -Dsonar.organization=rkg823
+          -Dsonar.projectKey=rkg823_TplWorkflow
+          -Dsonar.sources=TplWorkflow/
+          -Dsonar.test.exclusions=TplWorkflow.Tests/**
+          -Dsonar.tests=TplWorkflow.Tests/
+          -Dsonar.verbose=true
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
