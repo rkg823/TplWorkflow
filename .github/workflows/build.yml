@@ -52,8 +52,7 @@ jobs:
           -Dsonar.organization=rkg823
           -Dsonar.projectKey=rkg823_TplWorkflow
           -Dsonar.test.exclusions=**Test*.cs
-          -Dsonar.cs.vstest.reportsPaths=TestResults/*.trx
-          -Dsonar.cs.opencover.reportsPaths=TestResults/*/coverage.opencover.xml
+          -Dsonar.cs.opencover.reportsPaths=coverage.opencover.xml
           -Dsonar.verbose=true
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
