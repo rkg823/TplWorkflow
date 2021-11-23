@@ -23,7 +23,7 @@ namespace TplWorkflow.Core.Conditions
     public IList<Input> Inputs { get; }
     public Delegate Method { get; }
 
-    public override Task<AsyncResult<bool>> Resolve(ExecutionContext context)
+    public override Task<AsyncResult<bool>> Resolve(ExecutionContext context, string test)
     {
       var _context = context.ResolveMaps(Maps, Variables);
       var inputs = new List<object>();
