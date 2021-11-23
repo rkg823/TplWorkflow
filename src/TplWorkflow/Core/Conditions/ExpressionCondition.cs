@@ -33,8 +33,9 @@ namespace TplWorkflow.Core.Conditions
         inputs.Add(_input.Resolve(_context));
       }
 
-      var result = (bool)Method.DynamicInvoke(inputs.ToArray());
-      return Task.FromResult(new AsyncResult<bool>(result));
+      // var result = (bool)Method.DynamicInvoke(inputs.ToArray());
+      var test = false;
+      return Task.FromResult(new AsyncResult<bool>(test));
     }
   }
 }
