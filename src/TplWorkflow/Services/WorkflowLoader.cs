@@ -20,7 +20,7 @@ namespace TplWorkflow.Services
       this.workflowStore = workflowStore;
     } 
 
-    public WorkflowDefinition Register(WorkflowTemplate template, TemplateContext context, IServiceCollection services)
+    public WorkflowDefinition Register(WorkflowTemplat e template, TemplateContext context, IServiceCollection services)
     {
       template.Name.Required("Template should habe a name.");
       template.Version.Required(1, int.MaxValue, "Template should have a version.");
