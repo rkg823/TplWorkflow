@@ -29,32 +29,7 @@ jobs:
     - name: Test
       run: >
         dotnet test
-        --collect:"XPlat Code Coverage"
-        --results-directory TestResults/
-        --logger "trx;LogFileName=unittests.trx"
         --no-build
         --no-restore
         --configuration release
-        -- DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.Format=opencover
         
-    - name: Upload dotnet test results
-      uses: actions/upload-artifact@v2
-      with:
-            name: test-results
-            path: TestResults
-      # Use always() to always run this step to publish test results when there are test failures
-      if: ${{ always() }}
-      
-    - name: SonarCloud Scan
-      uses: sonarsource/sonarcloud-github-action@master
-      with:
-        args: >
-          -Dsonar.organization=rkg823
-          -Dsonar.projectKey=rkg823_TplWorkflow
-          -Dsonar.test.exclusions=**Test*.cs
-          -Dsonar.cs.opencover.reportsPaths=TestResults/*/coverage.opencover.xml
-          -Dsonar.verbose=true
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-
