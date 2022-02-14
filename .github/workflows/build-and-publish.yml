@@ -43,19 +43,6 @@ jobs:
             path: TestResults
       # Use always() to always run this step to publish test results when there are test failures
       if: ${{ always() }}
-      
-    - name: SonarCloud Scan
-      uses: sonarsource/sonarcloud-github-action@master
-      with:
-        args: >
-          -Dsonar.organization=rkg823
-          -Dsonar.projectKey=rkg823_TplWorkflow
-          -Dsonar.test.exclusions=**Test*.cs
-          -Dsonar.cs.opencover.reportsPaths=TestResults/*/coverage.opencover.xml
-          -Dsonar.verbose=true
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
     
     - name: Publish TplWorkflow
       uses: brandedoutcast/publish-nuget@v2.5.2
