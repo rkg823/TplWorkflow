@@ -122,6 +122,5 @@ namespace TplWorkflow.Core.Common
         }
       }
     }
-
   }
 }
